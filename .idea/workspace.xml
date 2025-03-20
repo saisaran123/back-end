@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3fb6f9ee-27a2-4e2f-a7b9-262631a9844d" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2kY5Oix42XvfcYOG0HFg8dzrFsb" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ArrayManipulator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.BrainBox.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CaesarCipher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CasearCipher.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Chess.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ChessGame.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Client.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DamageFile.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DateValidater.executor&quot;: &quot;Run&quot;,
+    &quot;Application.InterfaceDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LatinSquare.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LetterFrequency.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Library.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ListCalculations.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ListRandomizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ListUtils.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MergeFile.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NimGame.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RandomChoice.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Rooms.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Server.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StackExample.executor&quot;: &quot;Run&quot;,
+    &quot;Application.StudentInfo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TextSummarizer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ThreadSync.executor&quot;: &quot;Run&quot;,
+    &quot;Application.captchaMaker.executor&quot;: &quot;Run&quot;,
+    &quot;Application.client.executor&quot;: &quot;Run&quot;,
+    &quot;Application.client2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.client3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.comstructer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.demoClient.executor&quot;: &quot;Run&quot;,
+    &quot;Application.demoServer.executor&quot;: &quot;Run&quot;,
+    &quot;Application.presentation.executor&quot;: &quot;Run&quot;,
+    &quot;Application.quizapp.executor&quot;: &quot;Run&quot;,
+    &quot;Application.server.executor&quot;: &quot;Run&quot;,
+    &quot;Application.sortFile.executor&quot;: &quot;Run&quot;,
+    &quot;Application.uniqueWord.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/sai-zstch1475/java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/assignments" />
+      <recent name="$PROJECT_DIR$/assignments/QUIZ" />
+      <recent name="$PROJECT_DIR$/classroom practice" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="linkedList" />
+      <recent name="FileHandling" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.captchaMaker">
+    <configuration name="ChessGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ChessGame" />
+      <module name="sai-zstch1475" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DateValidater" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DateValidater" />
+      <module name="sai-zstch1475" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Server" />
+      <module name="sai-zstch1475" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="captchaMaker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="captchaMaker" />
+      <module name="sai-zstch1475" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.captchaMaker" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.ChessGame" />
+        <item itemvalue="Application.DateValidater" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3fb6f9ee-27a2-4e2f-a7b9-262631a9844d" name="Changes" comment="" />
+      <created>1723447639291</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723447639291</updated>
+      <workItem from="1723447640299" duration="3510000" />
+      <workItem from="1723529330821" duration="4269000" />
+      <workItem from="1723625155989" duration="2918000" />
+      <workItem from="1724047649108" duration="5121000" />
+      <workItem from="1724134244952" duration="1959000" />
+      <workItem from="1724213932851" duration="1873000" />
+      <workItem from="1724393965938" duration="3572000" />
+      <workItem from="1724652516983" duration="6604000" />
+      <workItem from="1724828413571" duration="6542000" />
+      <workItem from="1725256828134" duration="4341000" />
+      <workItem from="1725343393261" duration="2781000" />
+      <workItem from="1725361215145" duration="429000" />
+      <workItem from="1725429961732" duration="7640000" />
+      <workItem from="1725861933911" duration="7000" />
+      <workItem from="1725861949197" duration="46000" />
+      <workItem from="1726045943469" duration="7000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
