@@ -1,0 +1,199 @@
+function togglePassword(element) {
+	console.log("inside");
+    const input = element.previousElementSibling;
+    const type = input.getAttribute('type');
+    input.setAttribute('type', type === 'password' ? 'text' : 'password');
+    element.classList.toggle('fa-eye');
+    element.classList.toggle('fa-eye-slash');
+}
+
+function toggleForms(formType) {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    
+    if (formType === 'login') {
+        loginForm.classList.add('active');
+        signupForm.classList.remove('active');
+    } else {
+        loginForm.classList.remove('active');
+        signupForm.classList.add('active');
+    }
+}
+
+const slides = [
+    {
+        title: "Nutrition Tracker",
+        description: "Track your daily meals, calories, and nutrients effortlessly to maintain a healthy lifestyle.",
+        image: `<img src="images/searchfoo.gif" class="image-container-bg signin-1 signup-1">`
+    },
+    {
+        title: "Workout Tracker",
+        description: "Monitor your workouts, activities, and progress to stay motivated and reach your fitness goals.",
+        image: `<img src="images/fitn.gif" class="image-container-bg signin-2 signup-2">`
+    },
+    {
+        title: "Activity Tracker",
+        description: "Monitor your set fitness goals , and sync with your favorite health apps for seamless tracking.",
+        image: `<img src="images/sprints.gif" class="image-container-bg signin-3 signup-3">`
+    },
+    {
+        title: "Community Connect",
+        description: "Community Connect helps you track your fitness goals, monitor progress, and stay motivated with real-time insights.",
+        image: `<img src="images/community.gif" class="image-container-bg signin-4 signup-4">`
+    }
+];
+
+let currentSlide = 0;
+
+function updateSlide() {
+    const content = document.querySelector('.image-container .content');
+    const dots = document.querySelectorAll('.dot');
+    
+    content.style.opacity = '0';
+    content.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        content.querySelector('h2').textContent = slides[currentSlide].title;
+        content.querySelector('p').textContent = slides[currentSlide].description;
+        content.querySelector('.animation-bg').innerHTML = slides[currentSlide].image;
+        
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+        
+        content.style.opacity = '1';
+        content.style.transform = 'translateY(0)';
+    }, 300);
+}
+
+setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateSlide();
+}, 5000);
+
+document.querySelectorAll('.dot').forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        currentSlide = index;
+        updateSlide();
+    });
+});
+
+function handleLogin() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+	
+	let data = {
+			email : email,
+			password : password,
+		}
+
+    fetch('login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+			if(response.redirected){
+				window.location.href = response.url;
+			}
+            else if (response.ok) {
+                console.log(response);
+                return response.json();
+            }
+        })
+        .then(data => {
+            console.log(data);
+
+            if (data.status == "success") {
+                dispPopup('Login successful! Redirecting...');
+               
+             
+                
+               
+            } else {
+                dispPopup(data.message || 'Login failed!');
+            }
+        })
+        .catch(error => dispPopup('Error Login'));
+}
+
+
+document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 3000);
+}
+
+// dispPopup("")
+function handleSignup() {
+   console.log("handle signup")
+    const fullname = document.getElementById('fullname').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+	let data = {
+		name : fullname,
+		email : email,
+		password : password,
+	}
+    if (password !== confirmPassword) {
+		
+		
+        dispPopup('Passwords do not match!');
+		console.log("pass check....")
+        return;
+    }else{
+    console.log(fullname,email,password)
+    fetch(`Signup`,{
+        method: 'Post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)}
+		)
+    .then(response => {
+		console.log(response)
+		if(response.redirected){
+			console.log("munnai")
+			
+			console.log("pinnai")
+			return {status : "success" ,url : response.url};
+		}else if(response.ok){
+			console.log(response);
+			return response.json();
+		}
+		
+			
+		})
+		
+    .then(data => {
+		console.log(data)
+		
+		
+        if (data.status  == "success") {
+			 // sessionStorage.setItem("userName", fullname);
+           dispPopup('Signup successful! Redirecting...');
+           window.location.href= data.url;
+         
+        } else {
+            dispPopup(data.message || 'Signup failed!');
+        }
+    })
+    .catch(error => dispPopup('Error signing up'));
+	}
+}
+
+document.getElementById('signup').addEventListener('click', handleSignup);
+
+document.getElementById('login').addEventListener('click', handleLogin);
+

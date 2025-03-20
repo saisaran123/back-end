@@ -1,0 +1,127 @@
+package com.kunto.controller;
+
+import java.io.*;
+import java.sql.*;
+//import java.util.*;
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import org.json.*;
+
+//@WebServlet("/logFood")
+public class FoodLoggerServlet extends HttpServlet {
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/kunto";
+    private static final String DB_USER = "sai";
+    private static final String DB_PASS = "erenxnaruto";
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+
+        try {
+            // Read JSON data from request
+            BufferedReader reader = request.getReader();
+            StringBuilder jsonString = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonString.append(line);
+            }
+
+            // Parse JSON data
+            JSONObject jsonRequest = new JSONObject(jsonString.toString());
+            int userId = jsonRequest.getInt("user_id");
+            JSONArray foodsArray = jsonRequest.getJSONArray("foods");
+            String currentDate = java.time.LocalDate.now().toString(); // YYYY-MM-DD
+
+            // Establish database connection
+            Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+
+            // Check if an entry for this user on today's date already exists
+            String checkQuery = "SELECT * FROM daily_nutrition WHERE user_id = ? AND date = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+            checkStmt.setInt(1, userId);
+            checkStmt.setString(2, currentDate);
+            ResultSet rs = checkStmt.executeQuery();
+
+            boolean entryExists = rs.next();
+            double totalCalories = entryExists ? rs.getDouble("calories") : 0;
+            double totalProtein = entryExists ? rs.getDouble("protein") : 0;
+            double totalFiber = entryExists ? rs.getDouble("fiber") : 0;
+            double totalCarbs = entryExists ? rs.getDouble("carbs") : 0;
+            double totalFat = entryExists ? rs.getDouble("fat") : 0;
+            double totalWater = entryExists ? rs.getDouble("water") : 0;
+
+            // Process each food item
+            for (int i = 0; i < foodsArray.length(); i++) {
+                JSONObject food = foodsArray.getJSONObject(i);
+                double calories = food.getDouble("calories");
+                double protein = food.getDouble("protein");
+                double fiber = food.getDouble("fiber");
+                double carbs = food.getDouble("carbs");
+                double fat = food.getDouble("fat");
+                double grams = food.getDouble("grams");
+
+                // Convert to actual intake based on grams
+                totalCalories += (calories * grams / 100);
+                totalProtein += (protein * grams / 100);
+                totalFiber += (fiber * grams / 100);
+                totalCarbs += (carbs * grams / 100);
+                totalFat += (fat * grams / 100);
+                totalWater += (grams / 1000); // Assuming 1L of water per 1000g of food
+            }
+
+            if (entryExists) {
+                // Update existing entry
+                String updateQuery = "UPDATE daily_nutrition SET calories = ?, protein = ?, fiber = ?, carbs = ?, fat = ?, water = ? WHERE user_id = ? AND date = ?";
+                PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
+                updateStmt.setDouble(1, totalCalories);
+                updateStmt.setDouble(2, totalProtein);
+                updateStmt.setDouble(3, totalFiber);
+                updateStmt.setDouble(4, totalCarbs);
+                updateStmt.setDouble(5, totalFat);
+                updateStmt.setDouble(6, totalWater);
+                updateStmt.setInt(7, userId);
+                updateStmt.setString(8, currentDate);
+                updateStmt.executeUpdate();
+                updateStmt.close();
+            } else {
+                // Insert new entry
+                String insertQuery = "INSERT INTO daily_nutrition (user_id, date, calories, protein, fiber, carbs, fat, water) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement insertStmt = conn.prepareStatement(insertQuery);
+                insertStmt.setInt(1, userId);
+                insertStmt.setString(2, currentDate);
+                insertStmt.setDouble(3, totalCalories);
+                insertStmt.setDouble(4, totalProtein);
+                insertStmt.setDouble(5, totalFiber);
+                insertStmt.setDouble(6, totalCarbs);
+                insertStmt.setDouble(7, totalFat);
+                insertStmt.setDouble(8, totalWater);
+                insertStmt.executeUpdate();
+                insertStmt.close();
+            }
+
+            // Close connections
+            checkStmt.close();
+            conn.close();
+
+            // Send JSON response
+            JSONObject jsonResponse = new JSONObject();
+            jsonResponse.put("message", "Food log updated successfully");
+            jsonResponse.put("total_calories", totalCalories);
+            jsonResponse.put("total_protein", totalProtein);
+            jsonResponse.put("total_fiber", totalFiber);
+            jsonResponse.put("total_carbs", totalCarbs);
+            jsonResponse.put("total_fat", totalFat);
+            jsonResponse.put("total_water", totalWater);
+            out.print(jsonResponse.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("error", "Failed to log food data: " + e.getMessage());
+            out.print(errorResponse.toString());
+        }
+    }
+}
+
+

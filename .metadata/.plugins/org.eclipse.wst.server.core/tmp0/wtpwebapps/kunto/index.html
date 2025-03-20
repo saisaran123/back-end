@@ -1,0 +1,857 @@
+<!-- <!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health & Wellness Journey</title>
+  <style>
+    :root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #60a5fa;
+  --text-color: #1f2937;
+  --text-light: #6b7280;
+  --bg-color: #ffffff;
+  --bg-gradient-start: #eff6ff;
+  --bg-gradient-end: #eef2ff;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --border-radius: 0.5rem;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+[data-theme="dark"] {
+  --primary-color: #60a5fa;
+  --primary-dark: #3b82f6;
+  --primary-light: #93c5fd;
+  --text-color: #f3f4f6;
+  --text-light: #d1d5db;
+  --bg-color: #1f2937;
+  --bg-gradient-start: #111827;
+  --bg-gradient-end: #1f2937;
+  --gray-50: #374151;
+  --gray-100: #1f2937;
+  --gray-200: #374151;
+  --gray-300: #4b5563;
+  --gray-400: #6b7280;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--text-color);
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  min-height: 100vh;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.theme-btn {
+  background: var(--bg-color);
+  border: 1px solid var(--gray-300);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-color);
+  box-shadow: var(--shadow);
+  transition: all 0.2s;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.form-container {
+  background: var(--bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .split-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.content-side {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  padding: 3rem;
+}
+
+.content-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content-main h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.content-main p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feature svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary-light);
+}
+
+.content-image {
+  width: 100%;
+  border-radius: var(--border-radius);
+  margin-top: 2rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.form-side {
+  padding: 3rem;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.step:last-child {
+  flex: 0;
+}
+
+.step-number {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--gray-200);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.step.active .step-number {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+.step.completed .step-number {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+.step.completed .step-number::after {
+  content: '✓';
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--gray-200);
+  margin: 0 0.5rem;
+}
+
+.step.active .step-line,
+.step.completed .step-line {
+  background: var(--primary-color);
+}
+
+.step-content {
+  display: none;
+}
+
+.step-content.active {
+  display: block;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.radio-group.horizontal {
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--border-radius);
+  transition: all 0.2s;
+}
+
+.radio-option:hover {
+  background: var(--gray-50);
+}
+
+.radio-option input[type="radio"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+  cursor: pointer;
+}
+
+.radio-label {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.radio-option input[type="radio"]:checked + .radio-label {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.radio-option:has(input[type="radio"]:checked) {
+  border-color: var(--primary-color);
+  background: var(--gray-50);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.btn-back {
+  color: var(--primary-color);
+  background: transparent;
+}
+
+.btn-back:hover {
+  color: var(--primary-dark);
+}
+
+.btn-next {
+  background: var(--primary-color);
+  color: var(--white);
+  margin-left: auto;
+}
+
+.btn-next:hover {
+  background: var(--primary-dark);
+}
+
+input.error,
+select.error,
+textarea.error {
+  border-color: #ef4444;
+}
+
+input.error:focus,
+select.error:focus,
+textarea.error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.privacy-content {
+  background: var(--gray-50);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.privacy-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.privacy-content h4 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 1rem 0 0.5rem;
+}
+
+.privacy-content p {
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.privacy-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.privacy-content li {
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+/* Checkbox Styles */
+.consent-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--gray-300);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  font-size: 0.875rem;
+  color: var(--text-color);
+}
+
+.btn-add {
+  background: var(--gray-100);
+  color: var(--text-color);
+  margin-right: auto;
+}
+
+.btn-add:hover {
+  background: var(--gray-200);
+}
+  </style>
+</head>
+<body>
+  <div class="theme-toggle">
+    <button id="themeToggle" class="theme-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
+  </div>
+  <div class="container">
+    <div class="form-container">
+      <div class="split-layout">
+        <div class="content-side">
+          <div class="content-wrapper">
+            <div class="content-main">
+              <h1>Start Your Wellness Journey</h1>
+              <p>Join our community of health enthusiasts and get personalized guidance to achieve your fitness and wellness goals.</p>
+              
+              <div class="features">
+                <div class="feature">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <span>Join a supportive community</span>
+                </div>
+                <div class="feature">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3Z"/><path d="M9 11 4 6"/><path d="m5 20 7-7"/><path d="M13 19c-1.1 0-2.1-.4-2.8-1.2l-4-4c-.8-.7-1.2-1.7-1.2-2.8 0-1.1.4-2.1 1.2-2.8"/></svg>
+                  <span>Track your progress</span>
+                </div>
+                <div class="feature">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+                  <span>Get personalized plans</span>
+                </div>
+              </div>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80" alt="Wellness lifestyle" class="content-image">
+          </div>
+        </div>
+
+        <div class="form-side">
+          <div class="progress-bar">
+            <div class="step active">
+              <div class="step-number">1</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step">
+              <div class="step-number">4</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step">
+              <div class="step-number">5</div>
+            </div>
+          </div>
+
+          <form id="multi-step-form">
+            <div class="step-content active" data-step="1">
+              <h2>Choose Your Goal</h2>
+              <div class="form-group">
+                <label>Select your primary goal</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="goal" value="lose_weight" required>
+                    <span class="radio-label">Lose Weight</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="goal" value="maintain_weight">
+                    <span class="radio-label">Maintain Weight</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="goal" value="gain_weight">
+                    <span class="radio-label">Gain Weight</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="goal" value="gain_muscle">
+                    <span class="radio-label">Gain Muscle</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="goal" value="modify_diet">
+                    <span class="radio-label">Modify My Diet</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="goal" value="manage_stress">
+                    <span class="radio-label">Manage Stress</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="goal" value="step_count">
+                    <span class="radio-label">Step Count</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-content" data-step="2">
+              <h2>Body Measurements</h2>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="height">Height (cm)</label>
+                  <input type="number" id="height" name="height" min="100" max="250" required>
+                </div>
+                <div class="form-group">
+                  <label for="weight">Weight (kg)</label>
+                  <input type="number" id="weight" name="weight" min="30" max="300" step="0.1" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-content" data-step="3">
+              <h2>Personal Information</h2>
+              <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group horizontal">
+                  <label class="radio-option">
+                    <input type="radio" name="gender" value="male" required>
+                    <span class="radio-label">Male</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="gender" value="female">
+                    <span class="radio-label">Female</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="gender" value="other">
+                    <span class="radio-label">Other</span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+              </div>
+            </div>
+
+            <div class="step-content" data-step="4">
+              <h2>Location</h2>
+              <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                  <option value="">Select your country</option>
+                  <option value="US">United States</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="CA">Canada</option>
+                  <option value="AU">Australia</option>
+                  <option value="IN">India</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" required>
+              </div>
+            </div>
+
+            <div class="step-content" data-step="5">
+              <h2>Privacy Policy & Terms</h2>
+              <div class="form-group">
+                <div class="privacy-content">
+                  <h3>Privacy Policy</h3>
+                  <p>We are committed to protecting your privacy. This privacy policy explains how we collect, use, and safeguard your personal information.</p>
+                  
+                  <h4>Information We Collect</h4>
+                  <ul>
+                    <li>Personal information (name, email, date of birth)</li>
+                    <li>Health and fitness data (height, weight, fitness goals)</li>
+                    <li>Location information</li>
+                  </ul>
+
+                  <h4>How We Use Your Information</h4>
+                  <ul>
+                    <li>Personalize your wellness journey</li>
+                    <li>Provide customized recommendations</li>
+                    <li>Improve our services</li>
+                  </ul>
+
+                  <h4>Data Protection</h4>
+                  <p>We implement various security measures to maintain the safety of your personal information.</p>
+                </div>
+
+                <div class="consent-checkboxes">
+                  <label class="checkbox-option">
+                    <input type="checkbox" name="privacy_consent" required>
+                    <span class="checkbox-label">I have read and agree to the Privacy Policy</span>
+                  </label>
+                  
+                  <label class="checkbox-option">
+                    <input type="checkbox" name="marketing_consent">
+                    <span class="checkbox-label">I agree to receive marketing communications (optional)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <template id="dynamic-step-template">
+              <div class="step-content" data-step="">
+                <h2>Additional Information</h2>
+                <div class="form-group">
+                  <label for="question">Custom Question</label>
+                  <input type="text" name="custom_question" required>
+                </div>
+              </div>
+            </template>
+
+            <div class="form-buttons">
+              <button type="button" class="btn btn-back" id="prevBtn" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                Previous
+              </button>
+              <button type="button" class="btn btn-add" id="addStepBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                Add Step
+              </button>
+              <button type="button" class="btn btn-next" id="nextBtn">
+                Next
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+  <script src="">
+    document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('multi-step-form');
+  const steps = document.querySelectorAll('.step-content');
+  const progressSteps = document.querySelectorAll('.step');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const addStepBtn = document.getElementById('addStepBtn');
+  const themeToggle = document.getElementById('themeToggle');
+  let currentStep = 1;
+  let totalSteps = 5; 
+
+  
+  themeToggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    
+    
+    themeToggle.innerHTML = newTheme === 'dark' 
+      ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/></svg>'
+      : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+  });
+
+  function updateStep(step) {
+    steps.forEach(s => s.classList.remove('active'));
+    document.querySelector(`[data-step="${step}"]`).classList.add('active');
+    
+    progressSteps.forEach((s, index) => {
+      if (index + 1 < step) {
+        s.classList.add('completed', 'active');
+        s.querySelector('.step-number').innerHTML = '✓';
+      } else if (index + 1 === step) {
+        s.classList.add('active');
+        s.classList.remove('completed');
+        s.querySelector('.step-number').innerHTML = index + 1;
+      } else if (index + 1 <= totalSteps) {
+        s.classList.remove('active', 'completed');
+        s.querySelector('.step-number').innerHTML = index + 1;
+      }
+    });
+    
+    prevBtn.style.display = step === 1 ? 'none' : 'flex';
+    nextBtn.innerHTML = step === totalSteps 
+      ? 'Submit <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>'
+      : 'Next <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+  }
+
+  
+  addStepBtn.addEventListener('click', () => {
+    totalSteps++;
+    
+    
+    const progressBar = document.querySelector('.progress-bar');
+    const lastStep = progressBar.lastElementChild;
+    
+    
+    if (lastStep) {
+      const line = document.createElement('div');
+      line.className = 'step-line';
+      lastStep.appendChild(line);
+    }
+    
+    
+    const newStep = document.createElement('div');
+    newStep.className = 'step';
+    newStep.innerHTML = `<div class="step-number">${totalSteps}</div>`;
+    progressBar.appendChild(newStep);
+    
+    
+    const template = document.getElementById('dynamic-step-template');
+    const newStepContent = template.content.cloneNode(true);
+    const stepDiv = newStepContent.querySelector('.step-content');
+    stepDiv.dataset.step = totalSteps;
+    
+    
+    const title = prompt('Enter step title:', 'Additional Information');
+    const question = prompt('Enter question:', 'Please provide additional details');
+    
+    if (title && question) {
+      stepDiv.querySelector('h2').textContent = title;
+      const label = stepDiv.querySelector('label');
+      const input = stepDiv.querySelector('input');
+      label.textContent = question;
+      label.setAttribute('for', `custom_${totalSteps}`);
+      input.id = `custom_${totalSteps}`;
+      input.name = `custom_${totalSteps}`;
+      
+      form.insertBefore(stepDiv, form.lastElementChild);
+      updateStep(currentStep);
+    } else {
+      totalSteps--;
+      progressBar.removeChild(newStep);
+      if (lastStep) {
+        lastStep.removeChild(lastStep.lastElementChild);
+      }
+    }
+  });
+
+  function validateStep(step) {
+    const currentStepElement = document.querySelector(`[data-step="${step}"]`);
+    const inputs = currentStepElement.querySelectorAll('input, select, textarea');
+    let isValid = true;
+
+    inputs.forEach(input => {
+      if (input.type === 'radio' || input.type === 'checkbox') {
+        if (input.hasAttribute('required')) {
+          const checked = currentStepElement.querySelector(`input[name="${input.name}"]:checked`);
+          if (!checked) {
+            isValid = false;
+            input.closest('.radio-group, .consent-checkboxes').classList.add('error');
+          } else {
+            input.closest('.radio-group, .consent-checkboxes').classList.remove('error');
+          }
+        }
+      } else if (input.hasAttribute('required') && !input.value.trim()) {
+        isValid = false;
+        input.classList.add('error');
+      } else {
+        input.classList.remove('error');
+      }
+    });
+
+    return isValid;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentStep > 1) {
+      currentStep--;
+      updateStep(currentStep);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (validateStep(currentStep)) {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateStep(currentStep);
+      } else {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        
+        if (data.height && data.weight) {
+          const heightInMeters = parseFloat(data.height) / 100;
+          const weightInKg = parseFloat(data.weight);
+          const bmi = weightInKg / (heightInMeters * heightInMeters);
+          data.bmi = bmi.toFixed(1);
+        }
+        
+        
+        if (data.dob) {
+          const today = new Date();
+          const birthDate = new Date(data.dob);
+          let age = today.getFullYear() - birthDate.getFullYear();
+          const monthDiff = today.getMonth() - birthDate.getMonth();
+          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+          }
+          data.age = age;
+        }
+        
+        console.log('Form submitted:', data);
+        alert('Form submitted successfully! Check console for data.');
+      }
+    }
+  });
+
+  
+  updateStep(currentStep);
+
+  
+  form.addEventListener('input', (e) => {
+    if (e.target.hasAttribute('required')) {
+      if (e.target.type === 'radio' || e.target.type === 'checkbox') {
+        const group = e.target.closest('.radio-group, .consent-checkboxes');
+        group.classList.remove('error');
+      } else if (!e.target.value.trim()) {
+        e.target.classList.add('error');
+      } else {
+        e.target.classList.remove('error');
+      }
+    }
+  });
+});
+  </script>
+</html> -->
+

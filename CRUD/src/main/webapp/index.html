@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Operations with Struts</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        input, button { padding: 8px; margin: 5px; }
+    </style>
+</head>
+<body>
+
+    <h2>Struts CRUD Operations</h2>
+
+    <label>Name:</label>
+    <input type="text" id="name" placeholder="Enter Name">
+    
+    <label>Email:</label>
+    <input type="email" id="email" placeholder="Enter Email">
+    
+    <button onclick="createUser()">Create User</button>
+    <button onclick="readUsers()">Fetch Users</button>
+    
+    <h3>Update User</h3>
+    <label>User ID:</label>
+    <input type="number" id="updateId" placeholder="Enter ID">
+    
+    <label>New Name:</label>
+    <input type="text" id="updateName" placeholder="Enter Name">
+    
+    <label>New Email:</label>
+    <input type="email" id="updateEmail" placeholder="Enter Email">
+    
+    <button onclick="updateUser()">Update User</button>
+    
+    <h3>Delete User</h3>
+    <label>User ID:</label>
+    <input type="number" id="deleteId" placeholder="Enter ID">
+    
+    <button onclick="deleteUser()">Delete User</button>
+    
+    <h3>Users List</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="userTable">
+        </tbody>
+    </table>
+
+    <script>
+    function createUser() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+
+        if (!name || !email) {
+            alert('Please enter Name and Email.');
+            return;
+        }
+
+        fetch('create.do', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ "name": name, "email": email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.status);
+            readUsers();
+        })
+        .catch(error => console.error('Error creating user:', error));
+    }
+
+    function readUsers() {
+        fetch('read.do')
+        .then(response => response.json())
+        .then(users => {
+            const userTable = document.getElementById('userTable');
+            userTable.innerHTML = '';
+
+            users["data"].forEach(user => {
+                userTable.innerHTML += `
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                    </tr>
+                `;
+            });
+        })
+        .catch(error => console.error('Error reading users:', error));
+    }
+
+    function updateUser() {
+        const id = document.getElementById('updateId').value;
+        const name = document.getElementById('updateName').value;
+        const email = document.getElementById('updateEmail').value;
+
+        if (!id || !name || !email) {
+            alert('Please enter ID, Name, and Email.');
+            return;
+        }
+
+        fetch('update.do', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ "id": id, "name": name, "email": email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.status);
+            readUsers();
+        })
+        .catch(error => console.error('Error updating user:', error));
+    }
+
+    function deleteUser() {
+        const id = document.getElementById('deleteId').value;
+
+        if (!id) {
+            alert('Please enter a valid User ID.');
+            return;
+        }
+
+        fetch('delete.do', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ "id" : id })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.status);
+            readUsers();
+        })
+        .catch(error => console.error('Error deleting user:', error));
+    }
+
+    window.onload = readUsers;
+
+    </script>
+
+</body>
+</html>

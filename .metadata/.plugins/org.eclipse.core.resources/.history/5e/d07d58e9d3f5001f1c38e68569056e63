@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunto</title>
+    <link rel="stylesheet" href="css/style.css">
+       <link rel="stylesheet" href="css/popup.css">
+       <div id="popup-msg"></div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script async defer crossorigin="anonymous" src="https://connect.Zoho.net/en_US/sdk.js"></script>
+    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+</head>
+<body>
+	<div id="popup-msg"></div>
+    <div class="container">
+        <div class="form-container">
+            <div class="logo"><img src="images/kuntologo.png" class="kn-logo"><h3>KUNTO</h3></div>
+			<img src="images/searchfoo" class="kn-logo">
+            <div id="loginForm" class="form-section active">
+                <h1>Login to your Account</h1>
+                <img src="file:///home/sai-zstch1475/Downloads/searchfood.gif">
+                <p class="subtitle">Welcome back! select method to login</p>
+
+                <div class="social-buttons">
+                    <button id="customGoogleBtn" class="social-button Google" onclick="initiateGoogleSignIn()">
+                        <img src="https://www.google.com/favicon.ico" alt="Google Logo">
+                        Google
+                    </button>
+                    <button class="social-button Zoho" onclick="loginWithZoho()">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAA7VBMVEVHcEzs8vT////9/fz//Pv+/fz+9OP////////////////////5/f386Ofq9vD////////////////////////////////////////////////6sxwEmUjlJighbbQBlUD6sArlHB8NZrIba7TjEhVxwZMbnlb+6L7e6u393aD80oAyebjznZ250ObN5uGfvt3vgoOFrdX2vLxFrnuNz6r8wkoYaq7qTUB2oc3509O138dUjcXrdHThIiT7ym31qRZBfpyb07LppzjqWVyr28H1ra6/OCryhRkGiWleiFbCqmCOVDGucll9h3eOnJfRDgDSAAAAGnRSTlMA/UjO/ej+KAoBxLH9/fi4fECmb5ZCkI9nZnD3eEMAAAHPSURBVCiRbZPnduIwEEblIktuQCgpGNkGg7EppvcSIKTtJvv+j7MjOXDw2b1/7/m+mWONEUrRdUpJ5alsYMvCpkzRFUrk0oOpYDtK1sfpdB1ZRaL/OFJQ7NVq3Btuv8Ka53m18Jgz7oTV7/L2eLhgrA78rqW0ojwROcMegmCM7Rh78y42V4C5tGhvWV0YCL95vBYIzwpEZbW346LeBHafk9a0FYL0WjkZIdNeiNzLtve6kqwqsAbrTZKSjvBYuLFavWJNoDlM7nWk9pqMNYfVW1p87NmkP7KXkVMujwpF+PXf5NkTGxFkjOs7Vn/JyITLSa6CyqvF+/P7Qr2VUs0DKT2iR/vkOI6vZaKHj/CjG5VRRdv7INsZuZnP3aBvIII7XMYZOWq4bmOAEVViLjsZORDSQtRs85n7/yRVpN8LObv9fP1u4MJMjPSSNoNeJ91ISvqj5Ua4bmTCm2l8I8fpxJ3ZL7cBzF0gGFjwZkThvdDs+8+HhpsSuEupyE+hoHWclNMhECYIuqPISI8or+0d0ex8Q2ngdjfLvpS/nJ+hxTOfc/qzHA36SSQpBXK5dlJUtXYcx21Nk7BiPpRkcj15+BVkE6sqNspPFUKpfrn2v/V7Up7YWNU0AAAAAElFTkSuQmCC" alt="">
+                        Zoho
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>or continue with email</span>
+                </div>
+
+                <form>
+                    <div class="input-group">
+                        <i class="fas fa-envelope envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <i class="fas fa-eye-slash toggle-password pass" onclick="togglePassword(this)"></i>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <label>
+                            <input type="checkbox" id="remember">
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <button id="login" type="button" class="login-button">Login</button>
+                </form>
+
+                <p class="signup-link">
+                    Don't Have an Account? <a href="#" onclick="toggleForms('signup'); return false;">Create one</a>
+                </p>
+            </div>
+
+            <div id="signupForm" class="form-section">
+                <h1>Create an Account</h1>
+                <p class="subtitle">Join us today! Fill in your details below</p>
+
+                <form>
+                    <div class="input-group">
+                        <i class="fas fa-user user"></i>
+                        <input type="text" id="fullname" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope envelope"></i>
+                        <input type="email" id="signupEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock lock"></i>
+                        <input type="password" id="signupPassword" placeholder="Password" required>
+                        <i class="fas fa-eye-slash toggle-password eye" onclick="togglePassword(this)"></i>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock lock"></i>
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                        <i class="fas fa-eye-slash toggle-password eye" onclick="togglePassword(this)"></i>
+                    </div>
+
+                    <button id="signup" type="button" class="login-button">Sign Up</button>
+                </form>
+
+                <div class="divider">
+                    <span>or sign in with</span>
+                </div>
+
+                <div class="social-buttons">
+
+                    <button id="customGoogleBtn" class="social-button Google" onclick="initiateGoogleSignIn()">
+                        <img src="https://www.google.com/favicon.ico" alt="Google Logo">
+                        Google
+                    </button>
+
+                    <button class="social-button Zoho" onclick="loginWithZoho()">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAA7VBMVEVHcEzs8vT////9/fz//Pv+/fz+9OP////////////////////5/f386Ofq9vD////////////////////////////////////////////////6sxwEmUjlJighbbQBlUD6sArlHB8NZrIba7TjEhVxwZMbnlb+6L7e6u393aD80oAyebjznZ250ObN5uGfvt3vgoOFrdX2vLxFrnuNz6r8wkoYaq7qTUB2oc3509O138dUjcXrdHThIiT7ym31qRZBfpyb07LppzjqWVyr28H1ra6/OCryhRkGiWleiFbCqmCOVDGucll9h3eOnJfRDgDSAAAAGnRSTlMA/UjO/ej+KAoBxLH9/fi4fECmb5ZCkI9nZnD3eEMAAAHPSURBVCiRbZPnduIwEEblIktuQCgpGNkGg7EppvcSIKTtJvv+j7MjOXDw2b1/7/m+mWONEUrRdUpJ5alsYMvCpkzRFUrk0oOpYDtK1sfpdB1ZRaL/OFJQ7NVq3Btuv8Ka53m18Jgz7oTV7/L2eLhgrA78rqW0ojwROcMegmCM7Rh78y42V4C5tGhvWV0YCL95vBYIzwpEZbW346LeBHafk9a0FYL0WjkZIdNeiNzLtve6kqwqsAbrTZKSjvBYuLFavWJNoDlM7nWk9pqMNYfVW1p87NmkP7KXkVMujwpF+PXf5NkTGxFkjOs7Vn/JyITLSa6CyqvF+/P7Qr2VUs0DKT2iR/vkOI6vZaKHj/CjG5VRRdv7INsZuZnP3aBvIII7XMYZOWq4bmOAEVViLjsZORDSQtRs85n7/yRVpN8LObv9fP1u4MJMjPSSNoNeJ91ISvqj5Ua4bmTCm2l8I8fpxJ3ZL7cBzF0gGFjwZkThvdDs+8+HhpsSuEupyE+hoHWclNMhECYIuqPISI8or+0d0ex8Q2ngdjfLvpS/nJ+hxTOfc/qzHA36SSQpBXK5dlJUtXYcx21Nk7BiPpRkcj15+BVkE6sqNspPFUKpfrn2v/V7Up7YWNU0AAAAAElFTkSuQmCC" alt="">
+                        Zoho
+                    </button>
+                </div>
+
+                <p class="signup-link">
+                    Already have an account? <a href="#" onclick="toggleForms('login'); return false;">Login</a>
+                </p>
+            </div>
+        </div>
+        <div class="image-container">
+            <div class="content">
+                <div class="animation-bg"><img src="images/kuntologo.PNG" alt="" class="kn-logo-img"></div>
+                <h2>Connect with Every Application</h2>
+                <p>Everything you need in an easily customizable dashboard</p>
+                <div class="dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025,<a href="http://www.zohocorp.com/" target="_blank" rel="noreferrer">Zoho Corporation Pvt. Ltd.</a> All Rights Reserved.</p>
+    </footer>
+    <script src="js/script.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</body>
+</html>

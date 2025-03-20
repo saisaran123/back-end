@@ -1,0 +1,2490 @@
+//
+//class Timer {
+//    constructor() {
+//        this.startTime = 0;
+//        this.elapsedTime = 0;
+//        this.running = false;
+//        this.interval = null;
+//    }
+//
+//    start() {
+//        if (!this.running) {
+//            this.running = true;
+//            this.startTime = Date.now() - this.elapsedTime;
+//            this.interval = setInterval(() => {
+//                this.elapsedTime = Date.now() - this.startTime;
+//            }, 1000);
+//        }
+//    }
+//
+//    stop() {
+//        if (this.running) {
+//            clearInterval(this.interval);
+//            this.running = false;
+//        }
+//        return this.formatTime(this.elapsedTime);
+//    }
+//
+//    formatTime(ms) {
+//        let totalSeconds = Math.floor(ms / 1000);
+//        let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+//        let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+//        let seconds = String(totalSeconds % 60).padStart(2, '0');
+//        return `${hours}:${minutes}:${seconds}`;
+//    }
+//}
+//
+//function addTimer(time1, time2) {
+//    const timeToSeconds = (time) => {
+//        let [hours, minutes, seconds] = time.split(':').map(Number);
+//        return hours * 3600 + minutes * 60 + seconds;
+//    };
+//
+//    let totalSeconds = timeToSeconds(time1) + timeToSeconds(time2);
+//    let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+//    let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+//    let seconds = String(totalSeconds % 60).padStart(2, '0');
+//    
+//    return `${hours}:${minutes}:${seconds}`;
+//}
+//
+//// Example Usage:
+//let timer = new Timer();
+//
+//
+//let age=18;
+//let gender="Male";
+//let level="Beginner";
+//let startEndWorkoutBtn = _(".start-workout-btn");
+//let manualStartEndWorkoutBtn=_(".mv-start-workout-btn");
+//
+//let completeWorkoutMuscles=new Set();
+//const exercises = [
+//    
+///*        {
+//        id: 10,
+//        name: "Push-ups",
+//		sets : 3,
+//				reps : 15,
+//        video: "https://kunto-development.zohostratus.com/Side to side push up.mp4",
+//        description: "Classic upper body exercise",
+//        thumbnail: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=300&h=200&fit=crop"
+//    }*/
+//    
+//];
+//
+//const workout_wrap = _(".workout-wrap-1");
+//const BODY = _(".workout-wrap-2");
+//const FRONT = _(".front-body");
+//const BACK = _(".back-body");
+//const TAKE_REST=_(".take-rest-btn");
+//const WORKOUT_COMPLETED=_(".workout-completed-btn");
+//
+//
+//function createExeArray(arr){
+//	arr.forEach((el,i)=>{
+//		let ob={
+//			id:i,
+//			name:el.name,
+//			sets:el.sets,
+//			reps:el.reps,
+//			calorieBur:el.caloriesBurned,
+//			video:"https://kunto-development.zohostratus.com/"+el.name,
+//			description:`Targeting ${el.muscle}`,
+//			thumbnail:"https://kunto-development.zohostratus.com/"+el.name,
+//			muscle : el.muscle
+//			
+//		}
+//		exercises.push(ob)
+//	})
+//}
+//
+//function setSuggWorkouts(){
+//for (let i = 0; i < workoutSuggestions.length; i++) {
+//    let obj = workoutSuggestions[i];
+//    let ar=obj.ageGroup.split("-");
+//    
+//    if (age>=ar[0] && age<=ar[1] && obj.gender === gender && obj.level === level) {
+//        createExeArray(obj.exercises);
+//        break;
+//    }
+//}
+//
+//}
+//
+//setSuggWorkouts();
+//
+//workout_wrap.addEventListener("click", (ev) => {
+//    let prev = _(".expand-box");
+//    if (ev.target.closest("div").classList.contains("expand-btn")) {
+//        ev.target.closest(".up-down").classList.toggle("max-width");
+//        ev.target.closest(".up-down").classList.toggle("expand-box");
+//        if (prev) {
+//            prev.classList.remove("max-width");
+//            prev.classList.remove("expand-box");
+//        }
+//        let childs = workout_wrap.children;
+//        let all = [];
+//        for (const child of childs) {
+//            let paraDiv = child.querySelector(".pprr");
+//            let contentDiv = child.querySelector(".ccnn");
+//            if (!child.classList.contains("expand-box")) {
+//                paraDiv.classList.remove("display_none");
+//                contentDiv.classList.add("display_none");
+//                all.push(child);
+//
+//            }
+//            else {
+//                paraDiv.classList.add("display_none");
+//                contentDiv.classList.remove("display_none");
+//            }
+//        }
+//        if (all.length == 3) {
+//            for (const child of all) {
+//                let paraDiv = child.querySelector(".pprr");
+//                let contentDiv = child.querySelector(".ccnn");
+//                paraDiv.classList.add("display_none");
+//                contentDiv.classList.remove("display_none");
+//            }
+//        }
+//        else{
+//            all.length = 0;
+//        }
+//    }
+//    
+//})
+//BODY.addEventListener("click", (ev) => {
+//    if (!ev.target.closest("path")) {
+//        FRONT.classList.toggle("hide-body");
+//        BACK.classList.toggle("hide-body");
+//    }
+//})
+//
+//
+//let mv_exercises = []
+//
+//let mv_currentExcerciseIndex = 0;
+//
+//let currentExerciseIndex = 0;
+//
+//// Tab Navigation
+//const navButtons = document.querySelectorAll('.wo-nav-button');
+//const tabContents = document.querySelectorAll('.wo-tab-content');
+//
+//navButtons.forEach(button => {
+//    button.addEventListener('click', () => {
+//        navButtons.forEach(btn => btn.classList.remove('wo-active'));
+//        tabContents.forEach(content => content.classList.remove('wo-active'));
+//
+//        button.classList.add('wo-active');
+//        const tabId = button.getAttribute('data-tab');
+//        document.getElementById(`${tabId}-content`).classList.add('wo-active');
+//    });
+//});
+//
+//// Exercise Navigation
+//function updateExerciseDisplay(parent,suggestedVideos) {
+//	console.log(parent);
+//    const video = document.getElementById(`${parent}exercise-video`);
+//	let exercise;
+//	if(parent=="mv-"){
+//		exercise = suggestedVideos[mv_currentExcerciseIndex];
+//	}
+//	else{
+//    	exercise = suggestedVideos[currentExerciseIndex ];
+//	}	
+//    // Set video source and reload
+//    video.setAttribute("src", exercise.video);
+//    video.load();
+//	if(parent=="mv-"){
+//		document.getElementById(`${parent}current-exercise-name`).textContent = suggestedVideos[mv_currentExcerciseIndex ].name +" - "+ suggestedVideos[mv_currentExcerciseIndex ].sets + "x" + suggestedVideos[mv_currentExcerciseIndex ].reps;
+//		document.getElementById(`${parent}current-exercise-description`).textContent = suggestedVideos[mv_currentExcerciseIndex].description;
+//		}
+//	else{
+//    	document.getElementById(`${parent}current-exercise-name`).textContent = suggestedVideos[currentExerciseIndex].name +" - "+ suggestedVideos[mv_currentExcerciseIndex ].sets + "x" + suggestedVideos[mv_currentExcerciseIndex ].reps;
+//    	document.getElementById(`${parent}current-exercise-description`).textContent = suggestedVideos[currentExerciseIndex].description;
+//	}
+//    
+//    const previewContainer = document.querySelector(`.${parent}wo-preview-container`);
+//    previewContainer.innerHTML = '';
+//    console.log(suggestedVideos);
+//    suggestedVideos.forEach((exercise, index) => {
+//		let isNext;
+//		if(parent=="mv-"){
+//			isNext = (index === ( mv_currentExcerciseIndex + 1 ) % suggestedVideos.length);
+//		}
+//        else{
+//			isNext = (index === ( currentExerciseIndex + 1 ) % suggestedVideos.length);
+//		}
+//		console.log(exercise.name);
+//        const previewCard = document.createElement('div');
+//        previewCard.className = `wo-preview ${isNext ? 'next' : ''}`;
+//        previewCard.innerHTML = `
+//            <div class="wo-thumbnail-wrapper">
+//                <img src="images/${exercise.muscle}.png" alt="${exercise.name}" class="wo-thumbnail">
+//                <div class="wo-overlay">
+//                    <p class="wo-name">${exercise.name}</p>
+//                </div>
+//            </div>
+//			<p class="wo-description ${parent}close" onclick="deleteManual(this, '${exercise.name}')"></p>
+//
+//        `;
+//        
+//        // Add click handler to preview cards
+//        
+//        
+//        previewContainer.appendChild(previewCard);
+//    });
+//}
+//
+//function deleteManual(element, exerciseName) {
+//	console.log("heheheh");
+//    // Find the index of the exercise in the mv_exercises array
+//    const indexToRemove = mv_exercises.findIndex(ex => ex.name === exerciseName);
+//    
+//    if (indexToRemove !== -1) {
+//        // Remove the exercise from the array
+//        mv_exercises.splice(indexToRemove, 1);
+//        
+//        // Remove the element from the DOM
+//        element.closest('.wo-preview').remove();
+//        
+//        // Optional: Re-render the exercise display
+//        updateExerciseDisplay("mv-", mv_exercises);
+//    }
+//}
+//
+//
+//function mv_render(){
+//	_(".mv-upcoming-exercises").classList.remove("dis_none");
+//	_(".mv-video-container").classList.remove("dis_none");
+//	_(".mv-exercise-info").style.display ="flex";
+//	_(".mv-start-workout-btn").classList.remove("dis_none");
+//	_(".no-video-found").classList.add("dis_none");
+//	mv_exercises = transformExercises(selectedVideos);
+//	updateExerciseDisplay("mv-",mv_exercises);
+//}
+//function transformExercises(selectedVideos) {
+//    return selectedVideos.map((video, index) => ({
+//        id: index + 1,
+//        name: video.name,
+//		sets : video.sets,
+//		reps : video.reps,
+//		muscle:video.muscle,
+//        video: `https://kunto-development.zohostratus.com/${video.name}.mp4`, // Generates a dynamic video path
+//        description: `Targets ${video.muscle}`, // You can modify this dynamically if needed
+//        thumbnail: this.muscle // Change dynamically if needed
+//    }));
+//}
+//
+//
+//// Initialize display
+//updateExerciseDisplay("",exercises);
+//
+//
+//
+///*function takeRest(but){
+//	DURATION=30;
+//	let REST_WINDOW= but.closest(".wo-tab-content").querySelector('.rest-video');
+//	REST_WINDOW.classList.toggle("active-rest-video");
+//	startTimer(REST_WINDOW);
+//}*/
+//
+//
+//
+//function takeRest(but){
+//	
+//	
+//	if(but.parentElement.parentElement.nextElementSibling.innerText =='START WORKOUT'){
+//		console.log("workout not started...")
+//		dispPopup("workout not started...")
+//		return;
+//	} 
+//	DURATION=30;
+//	let REST_WINDOW= but.closest(".wo-tab-content").querySelector('.rest-video');
+//	REST_WINDOW.classList.toggle("active-rest-video");
+//	startTimer(REST_WINDOW);
+//}
+//
+//const DEFAULT_COLORS = ['#54DCA0', '#FFC043', '#FF6937'];
+//let DURATION = 30; // seconds
+//
+//function hexToRgb(hex) {
+//  hex = hex.replace('#', '');
+//  const bigInt = parseInt(hex, 16);
+//  const r = (bigInt >> 16) & 255;
+//  const g = (bigInt >> 8) & 255;
+//  const b = bigInt & 255;
+//  return [r, g, b];
+//}
+//
+//function rgbToHex(rgb) {
+//  const r = rgb[0].toString(16).padStart(2, '0');
+//  const g = rgb[1].toString(16).padStart(2, '0');
+//  const b = rgb[2].toString(16).padStart(2, '0');
+//  return `#${r}${g}${b}`;
+//}
+//
+//function interpolateColor(color1, color2, factor = 0.5) {
+//  const result = color1.slice();
+//  for (let i = 0; i < 3; i++) {
+//    result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+//  }
+//  return result;
+//}
+//
+//function getIntermediateColor(colors, percentage) {
+//  if (percentage <= 0) return colors[0];
+//  if (percentage >= 100) return colors[colors.length - 1];
+//
+//  const scaledPercentage = (percentage / 100) * (colors.length - 1);
+//  const lowerIndex = Math.floor(scaledPercentage);
+//  const upperIndex = lowerIndex + 1;
+//  const factor = scaledPercentage - lowerIndex;
+//
+//  const color1 = hexToRgb(colors[lowerIndex]);
+//  const color2 = hexToRgb(colors[upperIndex]);
+//  const interpolatedColor = interpolateColor(color1, color2, factor);
+//
+//  return rgbToHex(interpolatedColor);
+//}
+//
+//function createCircle(color, value = 100) {
+//  const px = (300 * value) / 100;
+//  return `
+//    <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+//      <circle
+//        style="transform: rotateX(180deg) rotate(90deg); transform-origin: 50% 50%;"
+//        r="46"
+//        cx="50"
+//        cy="50"
+//        stroke="${color}"
+//        stroke-width="4"
+//        stroke-linecap="round"
+//        stroke-dashoffset="${px}px"
+//        fill="transparent"
+//        stroke-dasharray="300px"
+//      ></circle>
+//    </svg>
+//  `;
+//}
+//
+//let startTime;
+//let animationFrameId;
+//let lastTimeLeft = null;
+//
+//function updateTimer(REST_WINDOW) {
+//  if (!startTime) return;
+//
+//  const seconds = Math.min((Date.now() - startTime) / 1000, DURATION);
+//  const percentage = Math.min((seconds * 100) / DURATION, 100);
+//  const timeLeft = Math.ceil(DURATION - seconds);
+//  const color = getIntermediateColor(DEFAULT_COLORS, percentage);
+//
+//
+//  if (timeLeft !== lastTimeLeft) {
+//    const secondsElement = REST_WINDOW.querySelector('.seconds');
+//	console.log(secondsElement);
+//    secondsElement.style.color = color;
+//    secondsElement.innerHTML = `<span class="number">${timeLeft}</span>`;
+//    lastTimeLeft = timeLeft;
+//
+//  }
+//      if(timeLeft==0){
+//			REST_WINDOW.classList.remove("active-rest-video");
+//
+//	}
+//
+//
+//  const progressElement = REST_WINDOW.querySelector('.progress');
+//  const circleHtml = createCircle(color, percentage);
+//  const existingCircle = progressElement.querySelector('.circle');
+//  if (existingCircle) {
+//    existingCircle.outerHTML = circleHtml;
+//  } else {
+//    progressElement.insertAdjacentHTML('beforeend', circleHtml);
+//  }
+//
+//  if (percentage < 100) {
+//    animationFrameId = requestAnimationFrame(() => updateTimer(REST_WINDOW));;
+//  }
+//}
+//
+//function startTimer(REST_WINDOW) {
+//  if (animationFrameId) {
+//    cancelAnimationFrame(animationFrameId);
+//  }
+//  lastTimeLeft = null;
+//  startTime = Date.now();
+//  updateTimer(REST_WINDOW);
+//}
+//
+//
+//document.querySelectorAll('#timer').forEach((e)=>{
+//	e.innerHTML = `
+//	  <div class="wrapper">
+//	    <div class="progress">
+//	      <div class="seconds"></div>
+//	    </div>
+//		<div class="rest-btns">
+//			<button class="skip-rest" onclick="minus10()">-10</button>
+//	    	<button class="skip-rest" onclick="skipRest(this)">Skip</button>
+//	    	<button class="skip-rest" onclick="plus10()">+10</button>
+//		</div>
+//		
+//	  </div>
+//	`;
+//
+//});
+//
+//
+//function minus10(){
+//	if(DURATION>=10){
+//		DURATION-=10;
+//	}
+//}
+//function plus10(){
+//	DURATION+=10;
+//}
+//function skipRest(but){
+//	let REST_WINDOW= but.closest(".wo-tab-content").querySelector('.rest-video');
+//	REST_WINDOW.classList.toggle("active-rest-video");
+//}
+//
+//
+//
+//function completeWorkout(parent,but){
+//	
+//	if(but.parentElement.parentElement.nextElementSibling.innerText =='START WORKOUT'){
+//		console.log("workout not started...")
+//		dispPopup("workout not started...")
+//		return;
+//	} 
+//	console.log(parent,but)
+//	if(parent == "mv-"){
+//		console.log("i'm hereeee")
+//		mv_currentExcerciseIndex = (mv_currentExcerciseIndex + 1) % mv_exercises.length;
+//		if((mv_exercises.length-1) == mv_currentExcerciseIndex){
+//			//but.innerText="end";
+//			manualStartEndWorkoutBtn.click();
+//			dispPopup("workout completed successfully...")
+//			CURR_VIDEO.pause();
+//		}
+//		takeRest(but);
+//		updateExerciseDisplay("mv-",mv_exercises);
+//		
+//	}	
+//	else{
+//		currentExerciseIndex = (currentExerciseIndex + 1) % exercises.length;
+//		if((exercises.length-1) == currentExerciseIndex){
+//			console.log(but)
+//			console.log("innerTxet")
+//			//but.innerText="end";
+//			startEndWorkoutBtn.click();
+//			dispPopup("workout completed successfully...")
+//			CURR_VIDEO.pause();
+//		}
+//		takeRest(but)
+//		updateExerciseDisplay("",exercises);
+//	}
+////	    CURR_VIDEO.pause();
+////	   CURR_VIDEO.currentTime = 0;
+////    	CURR_VIDEO.pause();
+////    	CURR_VIDEO.currentTime = 0; 
+//}
+//
+//function addCaloriesBurnedByWorkout(cal,totTime){
+//	console.log(totTime)
+//	fetch("/kunto/other_activities",{
+//	    method: "POST", // Specify method if needed
+//    	headers: {
+//        "Content-Type": "application/json"
+//    },
+//    	body: JSON.stringify({
+//        activityName: "Workout",
+//        activityCal:cal,        
+//        activityDate: nowDay,
+//        TimeTaken:totTime
+//    })
+//})
+//.then((res)=>{
+//		if(res.ok){
+//		return res.json();
+//	}
+//}).then((msg)=>{
+//	if(msg.isInserted){
+//		            Swal.fire(
+//                "saved!",
+//                "Your Activity has been saved."
+//            );
+//            console.log("heeeeeeeeeeeeeeeeeeeeeeee")
+//            getOneMonthCalorieData(ONE_MONTH_CAL);
+//	}
+//	
+//})
+//}
+//
+//
+//
+//function startWorkout(but){
+//	timer.start();
+//	let tab_content = but.closest(".wo-tab-content").querySelector(".manual-wo-tab-content");
+//	let CURR_VIDEO=but.closest(".wo-tab-content").querySelector(".exercise-video");
+//	if(but.innerText == "START WORKOUT"){
+//	console.log("crying");
+//	
+//	but.closest(".wo-tab-content").querySelector("p").classList.add("dis_none");
+//	if(tab_content){
+//		tab_content.classList.add("dis_none");
+//	}
+//	console.log(but.closest(".wo-tab-content").querySelector("p"),but.closest(".wo-tab-content").querySelector(".manual-wo-tab-content"))
+//	CURR_VIDEO.autoplay=true;
+//	CURR_VIDEO.play();
+//	but.innerText = "End workout";
+//	}
+//	else{
+//		console.log("dei dei dei");
+//		
+//		if(tab_content){
+//			let calories = 0;
+//			for (let i =0 ; i<=mv_currentExcerciseIndex;i++){
+//				let ex = mv_exercises[i];
+//				calories += +ex.sets * 15; 
+//				console.log("selected muscle ",mv_exercises[i].muscle)
+//
+//				
+//				highLightMuscle(mv_exercises[i].muscle);
+//				
+//				completeWorkoutMuscles.add(mv_exercises[i].muscle);
+//				console.log("after123");
+//				if(mv_currentExcerciseIndex == i){
+//					
+//					break;
+//				}
+//				
+//			}
+//			
+//			localStorage.setItem("complete_workouts",JSON.stringify([...completeWorkoutMuscles]));
+//			console.log(calories);
+//						addCaloriesBurnedByWorkout(calories,timer.stop());
+//
+//			selectedVideos = [];
+//			tab_content.classList.remove("dis_none");
+//			_(".mv-upcoming-exercises").classList.add("dis_none");
+//			_(".mv-video-container").classList.add("dis_none");
+//			_(".mv-exercise-info").style.display ="none";
+//			_(".mv-start-workout-btn").classList.add("dis_none");
+//			_(".no-video-found").classList.remove("dis_none");
+//			but.innerText = "Start Workout";
+//			CURR_VIDEO.pause();
+//			
+//		}
+//		else{
+//			let calories = 0;
+//			for (let i =0 ; i<=currentExerciseIndex;i++){
+//				let ex = exercises[i];
+//				calories += +ex.sets * 15; 
+//				
+//				console.log("selected muscle ",exercises[i].muscle)
+////				BODY.querySelectorAll("."+exercises[i].muscle).forEach(el=>{
+////					console.log(el);
+////					el.classList.add("changeMusceColor")
+////					console.log("after");
+////				});
+//				highLightMuscle(exercises[i].muscle);
+//				completeWorkoutMuscles.add(exercises[i].muscle);
+//
+//				if(currentExerciseIndex == i){
+//					break;
+//				}
+//			}
+//			localStorage.setItem("complete_workouts",JSON.stringify([...completeWorkoutMuscles]));
+//			currentExerciseIndex = 0;
+//			updateExerciseDisplay("",exercises);
+//			
+//			console.log(calories);
+//			but.innerText = "Start Workout";
+//			addCaloriesBurnedByWorkout(calories,timer.stop());
+//			CURR_VIDEO.pause();
+//		}
+//		
+//	}
+//}
+//
+//
+//// Add event listeners
+//
+//// Start the timer initially
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//let wholeVideo={};
+//
+//// Mock data - replace with your actual data
+//const fitnessCategories = [
+//  'Legs',
+//  'Triceps',
+//  'Biceps',
+//  'Chest',
+//  'Glutes',
+//  'Forearms',
+//  'Abs',
+//  "Calfs",
+//  'Shoulder',
+//  'Trap',
+//  'Quads',
+//  'Hamstring',
+//  'Lat'
+//];
+//
+//// Mock videos - replace with your actual data fetching logic
+//
+//const MUSCLE_TRAINED=_(".Muscle-trained");
+//const SELECT_VIDEOS = document.getElementById("manual-wo-category-select");
+//// DOM Elements
+//const modal = document.getElementById('manual-wo-modal');
+//const addVideoBtn = document.getElementById('manual-wo-add-video-btn');
+//const closeBtn = document.getElementById('manual-wo-close-btn');
+//const cancelBtn = document.getElementById('manual-wo-cancel-btn');
+//const doneBtn = document.getElementById('manual-wo-done-btn');
+//const categorySelect = document.getElementById('manual-wo-category-select');
+//const videoList = document.getElementById('manual-wo-video-list');
+//
+//// State
+//let selectedVideos = [];
+//
+//const categories = ['Legs', 'Arms', 'Chest', 'Back', 'Core'];
+//const mockVideos = [
+//  'Calf Raise on Hack Squat Machine',
+//  'Resistance Band Leg Curl',
+//  'Rebounder In & Out Jacks',
+//  'Rebounder In & Out From Ground',
+//  'Cable Hamstring Curl',
+//  'Leg Press Machine Normal Stance'
+//];
+//
+//// Initialize category options
+//fitnessCategories.forEach(category => {
+//  const option = document.createElement('option');
+//  option.value = category;
+//  option.textContent = category;
+//  categorySelect.appendChild(option);
+//});
+//
+//// Event Listeners
+//
+//addVideoBtn.addEventListener('click', () => {
+//  modal.classList.add('active');
+//    BODY.addEventListener("click",selectByBody)
+//
+//    MUSCLE_TRAINED.innerText="Select A Category";
+//
+//});
+//
+//closeBtn.addEventListener('click', closeModal);
+//cancelBtn.addEventListener('click', closeModal);
+//
+//// Close modal if clicking outside
+//modal.addEventListener('click', (e) => {
+//  if (e.target === modal) {
+//      closeModal();
+//  }
+//});
+//
+//function renderVideoOption(tosearch){
+//  mockVideos.forEach(video => {
+//    const videoItem = document.createElement('div');
+//    videoItem.className = 'manual-wo-video-item';
+//    
+//    const checkbox = document.createElement('input');
+//    checkbox.type = 'checkbox';
+//    
+//    // Find if this video is already selected
+//    const selectedVideo = selectedVideos.find(v => v.name === video);
+//    checkbox.checked = !!selectedVideo;
+//    
+//    const label = document.createElement('span');
+//    label.textContent = video;
+//    
+//    // Create sets and reps inputs
+//    const inputsContainer = document.createElement('div');
+//    inputsContainer.className = 'manual-wo-sets-reps-inputs';
+//    
+//    // Sets input group
+//    const setsGroup = document.createElement('div');
+//    setsGroup.className = 'manual-wo-input-group';
+//    
+//    const setsLabel = document.createElement('label');
+//    setsLabel.textContent = 'Sets:';
+//    
+//    const setsInput = document.createElement('input');
+//    setsInput.type = 'number';
+//    setsInput.min = '1';
+//    setsInput.value = selectedVideo ? selectedVideo.sets : '3';
+//    
+//    setsGroup.appendChild(setsLabel);
+//    setsGroup.appendChild(setsInput);
+//    
+//    // Reps input group
+//    const repsGroup = document.createElement('div');
+//    repsGroup.className = 'manual-wo-input-group';
+//    
+//    const repsLabel = document.createElement('label');
+//    repsLabel.textContent = 'Reps:';
+//    
+//    const repsInput = document.createElement('input');
+//    repsInput.type = 'number';
+//    repsInput.min = '1';
+//    repsInput.value = selectedVideo ? selectedVideo.reps : '12';
+//    
+//    repsGroup.appendChild(repsLabel);
+//    repsGroup.appendChild(repsInput);
+//    
+//    // Add inputs to container
+//    inputsContainer.appendChild(setsGroup);
+//    inputsContainer.appendChild(repsGroup);
+//    
+//    // Show/hide inputs based on checkbox state
+//    inputsContainer.style.display = checkbox.checked ? 'flex' : 'none';
+//    
+//    // Handle checkbox change
+//    checkbox.addEventListener('change', () => {
+//      if (checkbox.checked) {
+//        selectedVideos.push({
+//          name: video,
+//          sets: parseInt(setsInput.value),
+//          reps: parseInt(repsInput.value),
+//          muscle : tosearch
+//        });
+//        inputsContainer.style.display = 'flex';
+//      } else {
+//        selectedVideos = selectedVideos.filter(v => v.name !== video);
+//        inputsContainer.style.display = 'none';
+//      }
+//      doneBtn.disabled = selectedVideos.length === 0;
+//    });
+//    
+//    // Handle input changes
+//    setsInput.addEventListener('change', () => {
+//      if (checkbox.checked) {
+//        const video = selectedVideos.find(v => v.name === label.textContent);
+//        if (video) {
+//          video.sets = parseInt(setsInput.value);
+//        }
+//      }
+//    });
+//    
+//    repsInput.addEventListener('change', () => {
+//      if (checkbox.checked) {
+//        const video = selectedVideos.find(v => v.name === label.textContent);
+//        if (video) {
+//          video.reps = parseInt(repsInput.value);
+//        }
+//      }
+//    });
+//    
+//    videoItem.appendChild(checkbox);
+//    videoItem.appendChild(label);
+//    videoItem.appendChild(inputsContainer);
+//    videoList.appendChild(videoItem);
+//  });
+//}
+//
+//
+//function getVideos(tosearch){
+//	fetch(`/kunto/manual_workout?search=${tosearch}`)
+//	.then((res)=>{
+//		if(res.ok){
+//			return res.json()
+//		}
+//	})
+//	.then((data)=>{
+//		wholeVideo=data;
+//		mockVideos.length=0;
+//		Object.keys(data).forEach((key)=>{
+//			mockVideos.push(key);
+//		})
+//		renderVideoOption(tosearch);
+//	})
+//}
+//categorySelect.addEventListener('change', (e) => {
+//  if (e.target.value) {
+//      // Clear previous videos
+//      videoList.innerHTML = '';
+//      getVideos(e.target.value);
+//      // Populate video list (using mock data - replace with your actual data fetching)
+//
+//  } else {
+//      videoList.innerHTML = '';
+//  }
+//});
+//
+//doneBtn.addEventListener('click', () => {
+//  mv_render();
+//  console.log('Selected videos:', selectedVideos);
+//  closeModal();
+//});
+//
+//// Helper functions
+//function toggleVideoSelection(video) {
+//  if (selectedVideos.includes(video)) {
+//      selectedVideos = selectedVideos.filter(v => v !== video);
+//  } else {
+//      selectedVideos.push(video);
+//  }
+//  
+//  // Update done button state
+//  doneBtn.disabled = selectedVideos.length === 0;
+//}
+//
+//function closeModal() {
+//  modal.classList.remove('active');
+//      BODY.removeEventListener("click",selectByBody)
+//	  MUSCLE_TRAINED.innerText="Muscle Trained Today";
+//  
+//  categorySelect.value = '';
+//  videoList.innerHTML = '';
+//  doneBtn.disabled = true;
+//}
+//
+//
+//
+//
+//
+//FRONT.querySelectorAll("g").forEach((element) => {
+//  element.addEventListener("mouseenter", () => {
+//      const id = element.id;
+//      
+//      if (id) {
+//          FRONT.querySelectorAll(`#${id}`).forEach((el) => {
+//              el.querySelectorAll("path").forEach((e)=>{
+//                e.style.color = "#fe6b8b";
+//              }) // Change to any color you prefer
+//          });
+//      }
+//  });
+//
+//  element.addEventListener("mouseleave", () => {
+//      const id = element.id;
+//      if (id) {
+//        FRONT.querySelectorAll(`#${id}`).forEach((el) => {
+//            el.querySelectorAll("path").forEach((e)=>{
+//              e.style.color = "";
+//            }) // Change to any color you prefer
+//        });
+//    }
+//  });
+//});
+//
+//
+//BACK.querySelectorAll("g").forEach((element) => {
+//  element.addEventListener("mouseenter", () => {
+//      const id = element.id;
+//      
+//      if (id) {
+//          BACK.querySelectorAll(`#${id}`).forEach((el) => {
+//              el.querySelectorAll("path").forEach((e)=>{
+//                e.style.color = "#fe6b8b";
+//              }) // Change to any color you prefer
+//          });
+//      }
+//  });
+//
+//  element.addEventListener("mouseleave", () => {
+//      const id = element.id;
+//      if (id) {
+//        BACK.querySelectorAll(`#${id}`).forEach((el) => {
+//            el.querySelectorAll("path").forEach((e)=>{
+//              e.style.color = "";
+//            }) // Change to any color you prefer
+//        });
+//    }
+//  });
+//});
+//
+//function triggerVideoLists(name){
+//	SELECT_VIDEOS.value=name;
+//	SELECT_VIDEOS.dispatchEvent(new Event("change"));
+//
+//}
+//
+//function selectByBody(ev){
+//  console.log(ev.target.classList[0]);
+//  if(ev.target.classList[0]){
+//	triggerVideoLists(ev.target.classList[0])
+//  }
+//  
+//}
+//
+//
+//
+//
+//// Fitness categories defined in JavaScript
+//const logDidFitnessCategories = [
+//  'Legs',
+//  'Triceps',
+//  'Biceps',
+//  'Chest',
+//  'Glutes',
+//  'Forearms',
+//  'Abs',
+//  'Calfs',
+//  'Shoulder',
+//  'Traps',
+//  'Quads',
+//  'Hamstring',
+//  'Lat'
+//];
+//
+//// Mock videos - replace with your actual data fetching logic
+//const logDidMockVideos = [
+//  'Calf Raise on Hack Squat Machine',
+//  'Resistance Band Leg Curl',
+//  'Rebounder In & Out Jacks',
+//  'Rebounder In & Out From Ground',
+//  'Cable Hamstring Curl',
+//  'Leg Press Machine Normal Stance'
+//];
+//
+//// DOM Elements
+///*const logDidModal = document.getElementById('log-did-modal');
+//*/const logDidAddVideoBtn = document.getElementById('log-did-add-video-btn');
+//const logDidCloseBtn = document.getElementById('log-did-close-btn');
+//const logDidCancelBtn = document.getElementById('log-did-cancel-btn');
+//const logDidDoneBtn = document.getElementById('log-did-done-btn');
+//const logDidCategorySelect = document.getElementById('log-did-category-select');
+//const logDidVideoList = document.getElementById('log-did-video-list');
+//const logDidMuscleTrained = document.getElementById('log-did-muscle-trained');
+//const logDidNotFound = document.getElementById('log-did-not-found');
+//
+//// State
+//let logDidSelectedVideos = [];
+//let logDidWholeVideo = {};
+//
+//// Initialize category options
+//function logDidPopulateCategories() {
+//  // Clear existing options except the first one
+//  while (logDidCategorySelect.options.length > 1) {
+//    logDidCategorySelect.remove(1);
+//  }
+//  
+//  // Add new options from the categories array
+//  logDidFitnessCategories.forEach(category => {
+//    const option = document.createElement('option');
+//    option.value = category;
+//    option.textContent = category;
+//    logDidCategorySelect.appendChild(option);
+//  });
+//}
+//
+//// Render video options
+//function logDidRenderVideoOptions(cat) {
+//  // Clear previous videos
+//  logDidVideoList.innerHTML = '';
+//  
+//  logDidMockVideos.forEach(video => {
+//    const videoItem = document.createElement('div');
+//    videoItem.className = 'log-did-video-item';
+//    
+//    const videoHeader = document.createElement('div');
+//    videoHeader.className = 'log-did-video-item-header';
+//    
+//    const checkbox = document.createElement('input');
+//    checkbox.type = 'checkbox';
+//    
+//    // Find if this video is already selected
+//    const selectedVideo = logDidSelectedVideos.find(v => v.name === video);
+//    checkbox.checked = !!selectedVideo;
+//    
+//    const label = document.createElement('span');
+//    label.textContent = video;
+//    
+//    videoHeader.appendChild(checkbox);
+//    videoHeader.appendChild(label);
+//    
+//    // Create sets and reps inputs
+//    const inputsContainer = document.createElement('div');
+//    inputsContainer.className = 'log-did-sets-reps-inputs';
+//    
+//    // Sets input group
+//    const setsGroup = document.createElement('div');
+//    setsGroup.className = 'log-did-input-group';
+//    
+//    const setsLabel = document.createElement('label');
+//    setsLabel.textContent = 'Sets:';
+//    
+//    const setsInput = document.createElement('input');
+//    setsInput.type = 'number';
+//    setsInput.min = '1';
+//    setsInput.value = selectedVideo ? selectedVideo.sets : '3';
+//    
+//    setsGroup.appendChild(setsLabel);
+//    setsGroup.appendChild(setsInput);
+//    
+//    // Reps input group
+//    const repsGroup = document.createElement('div');
+//    repsGroup.className = 'log-did-input-group';
+//    
+//    const repsLabel = document.createElement('label');
+//    repsLabel.textContent = 'Reps:';
+//    
+//    const repsInput = document.createElement('input');
+//    repsInput.type = 'number';
+//    repsInput.min = '1';
+//    repsInput.value = selectedVideo ? selectedVideo.reps : '12';
+//    
+//    repsGroup.appendChild(repsLabel);
+//    repsGroup.appendChild(repsInput);
+//    
+//    // Add inputs to container
+//    inputsContainer.appendChild(setsGroup);
+//    inputsContainer.appendChild(repsGroup);
+//    
+//    // Show/hide inputs based on checkbox state
+//    inputsContainer.style.display = checkbox.checked ? 'flex' : 'none';
+//    
+//    // Handle checkbox change
+//    checkbox.addEventListener('change', () => {
+//      if (checkbox.checked) {
+//        logDidSelectedVideos.push({
+//          name: video,
+//          sets: parseInt(setsInput.value),
+//          reps: parseInt(repsInput.value),
+//          muscle:cat
+//        });
+//        inputsContainer.style.display = 'flex';
+//      } else {
+//        logDidSelectedVideos = logDidSelectedVideos.filter(v => v.name !== video);
+//        inputsContainer.style.display = 'none';
+//      }
+//      logDidDoneBtn.disabled = logDidSelectedVideos.length === 0;
+//    });
+//    
+//    // Handle input changes
+//    setsInput.addEventListener('change', () => {
+//      if (checkbox.checked) {
+//        const video = logDidSelectedVideos.find(v => v.name === label.textContent);
+//        if (video) {
+//          video.sets = parseInt(setsInput.value);
+//        }
+//      }
+//    });
+//    
+//    repsInput.addEventListener('change', () => {
+//      if (checkbox.checked) {
+//        const video = logDidSelectedVideos.find(v => v.name === label.textContent);
+//        if (video) {
+//          video.reps = parseInt(repsInput.value);
+//        }
+//      }
+//    });
+//    
+//    videoItem.appendChild(videoHeader);
+//    videoItem.appendChild(inputsContainer);
+//    logDidVideoList.appendChild(videoItem);
+//  });
+//}
+//
+//// Mock function to get videos - replace with actual API call
+//function logDidGetVideos(category) {
+//  // In a real implementation, this would be an API call
+//  console.log(`Fetching videos for category: ${category}`);
+//  
+//  // For demo purposes, we're just using the mock videos
+//  // In a real implementation, you would fetch data from your API
+//  
+//  fetch(`/kunto/manual_workout?search=${category}`)
+//    .then((res) => {
+//      if(res.ok) {
+//        return res.json();
+//      }
+//    })
+//    .then((data) => {
+//      logDidWholeVideo = data;
+//      logDidMockVideos.length = 0;
+//      Object.keys(data).forEach((key) => {
+//        logDidMockVideos.push(key);
+//      });
+//      logDidRenderVideoOptions(category);
+//    });
+//
+//  
+//  // For demo, just render the mock videos
+//}
+//
+//// Event Listeners
+//logDidAddVideoBtn.addEventListener('click', () => {
+//  logDidMuscleTrained.innerText = "Select A Category";
+//  logDidNotFound.classList.remove('log-did-show-flex');
+//});
+//
+//logDidCloseBtn.addEventListener('click', logDidCloseModal);
+//logDidCancelBtn.addEventListener('click', logDidCloseModal);
+//
+//// Close modal if clicking outside
+///*logDidModal.addEventListener('click', (e) => {
+//  if (e.target === logDidModal) {
+//    logDidCloseModal();
+//  }
+//});*/
+//
+//logDidCategorySelect.addEventListener('change', (e) => {
+//  if (e.target.value) {
+//    logDidGetVideos(e.target.value);
+//  } else {
+//    logDidVideoList.innerHTML = '';
+//  }
+//});
+//
+//logDidDoneBtn.addEventListener('click', () => {
+//  console.log('Selected videos:', logDidSelectedVideos);
+//  addCaloriesBurnedByWorkout(calculateCaloriesBurned(logDidSelectedVideos),'00:00:00')
+//    logDidCloseModal();
+//
+//  // Show the not found message after clicking Done
+//  logDidNotFound.classList.add('log-did-show-flex');
+//});
+//
+//// Helper functions
+//function logDidCloseModal() {
+///*  logDidModal.classList.remove('active');
+//*/  logDidMuscleTrained.innerText = "Muscle Trained Today";
+//  
+//  logDidCategorySelect.value = '';
+//  logDidVideoList.innerHTML = '';
+//  logDidDoneBtn.disabled = true;
+//  logDidSelectedVideos = [];
+//}
+//
+//// Initialize the app
+//function logDidInit() {
+//  logDidPopulateCategories();
+//}
+//
+//// Initialize when the page loads
+//document.addEventListener('DOMContentLoaded', logDidInit);
+//
+//
+//
+//function calculateCaloriesBurned(exercises) {
+//    const caloriesPerRep = 0.1; // Adjust this value if needed
+//    let totalCalories = 0;
+//
+//    exercises.forEach(exercise => {
+//        let exerciseCalories = exercise.sets * exercise.reps * caloriesPerRep;
+//        totalCalories += exerciseCalories;
+//    });
+//
+//    return totalCalories.toFixed(2);
+//}
+//
+//
+//
+//function initialWorkoutHighLight(){
+//	
+//	completeWorkoutMuscles =new Set(JSON.parse(localStorage.getItem("complete_workouts")) || "[]");
+//	
+//	completeWorkoutMuscles.forEach((m)=>{
+//		if(m!='[' && m!=']'){
+//			highLightMuscle(m);
+//		}
+//		
+//	})
+//}
+//
+//initialWorkoutHighLight();
+//
+//function highLightMuscle(muscle){
+//	BODY.querySelectorAll("."+muscle).forEach(el=>{
+//					console.log(el);
+//					el.classList.add("changeMusceColor")
+//					console.log("after");
+//	});
+//	
+//	
+//}
+//
+//
+//
+//
+
+
+
+
+
+let age=18;
+let gender="Male";
+let level="Beginner";
+let startEndWorkoutBtn = _(".start-workout-btn");
+let manualStartEndWorkoutBtn=_(".mv-start-workout-btn");
+class Timer {
+    constructor() {
+        this.startTime = 0;
+        this.elapsedTime = 0;
+        this.running = false;
+        this.interval = null;
+    }
+
+    start() {
+        if (!this.running) {
+            this.running = true;
+            this.startTime = Date.now() - this.elapsedTime;
+            this.interval = setInterval(() => {
+                this.elapsedTime = Date.now() - this.startTime;
+            }, 1000);
+        }
+    }
+
+    stop() {
+        if (this.running) {
+            clearInterval(this.interval);
+            this.running = false;
+        }
+        return this.formatTime(this.elapsedTime);
+    }
+
+    formatTime(ms) {
+        let totalSeconds = Math.floor(ms / 1000);
+        let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        let seconds = String(totalSeconds % 60).padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+}
+
+
+
+function addTimer(time1, time2) {
+    const timeToSeconds = (time) => {
+        let [hours, minutes, seconds] = time.split(':').map(Number);
+        return hours * 3600 + minutes * 60 + seconds;
+    };
+
+    let totalSeconds = timeToSeconds(time1) + timeToSeconds(time2);
+    let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+    let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+    let seconds = String(totalSeconds % 60).padStart(2, '0');
+    
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+// Example Usage:
+let timer = new Timer();
+
+
+const exercises = [
+    
+/*        {
+        id: 10,
+        name: "Push-ups",
+		sets : 3,
+				reps : 15,
+        video: "https://kunto-development.zohostratus.com/Side to side push up.mp4",
+        description: "Classic upper body exercise",
+        thumbnail: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?w=300&h=200&fit=crop"
+    }*/
+    
+];
+
+const workout_wrap = _(".workout-wrap-1");
+const BODY = _(".workout-wrap-2");
+const FRONT = _(".front-body");
+const BACK = _(".back-body");
+const TAKE_REST=_(".take-rest-btn");
+const WORKOUT_COMPLETED=_(".workout-completed-btn");
+let completeWorkoutMuscles=new Set();
+
+function createExeArray(arr){
+	arr.forEach((el,i)=>{
+		let ob={
+			id:i,
+			name:el.name,
+			sets:el.sets,
+			reps:el.reps,
+			calorieBur:el.caloriesBurned,
+			video:"https://kunto-development.zohostratus.com/"+el.name,
+			description:`Targeting ${el.muscle}`,
+			thumbnail:el.muscle,
+			muscle:el.muscle
+			
+		}
+		exercises.push(ob)
+	})
+	createWorkoutCards(exercises)
+}
+function createWorkoutCards(exercises) {
+    const grid = document.querySelector(".exercises-grid"); // Get the container
+
+    // Clear previous content if needed
+    grid.innerHTML = "";
+
+    exercises.forEach((exercise) => {
+        const exerciseCard = document.createElement("div");
+        exerciseCard.classList.add("exercise-card");
+        exerciseCard.setAttribute("data-sets", exercise.sets);
+
+        exerciseCard.innerHTML = `
+            <div class="exercise-image">
+                <img src="images/${exercise.thumbnail}.png" alt="${exercise.name}">
+            </div>
+            <div class="exercise-info">
+                <h3>${exercise.name.slice(0,exercise.name.length-4)}</h3>
+                <p>${exercise.sets} sets × ${exercise.reps} reps</p>
+            </div>
+        `;
+
+        grid.appendChild(exerciseCard);
+    });
+}
+
+function setSuggWorkouts(){
+for (let i = 0; i < workoutSuggestions.length; i++) {
+    let obj = workoutSuggestions[i];
+    let ar=obj.ageGroup.split("-");
+    
+    if (age>=ar[0] && age<=ar[1] && obj.gender === gender && obj.level === level) {
+        createExeArray(obj.exercises);
+        break;
+    }
+}
+
+}
+
+setSuggWorkouts()
+
+workout_wrap.addEventListener("click", (ev) => {
+    let prev = _(".expand-box");
+    if (ev.target.closest("div").classList.contains("expand-btn")) {
+        ev.target.closest(".up-down").classList.toggle("max-width");
+        ev.target.closest(".up-down").classList.toggle("expand-box");
+        if (prev) {
+            prev.classList.remove("max-width");
+            prev.classList.remove("expand-box");
+        }
+        let childs = workout_wrap.children;
+        let all = [];
+        for (const child of childs) {
+            let paraDiv = child.querySelector(".pprr");
+            let contentDiv = child.querySelector(".ccnn");
+            if (!child.classList.contains("expand-box")) {
+                paraDiv.classList.remove("display_none");
+                contentDiv.classList.add("display_none");
+                all.push(child);
+
+            }
+            else {
+                paraDiv.classList.add("display_none");
+                contentDiv.classList.remove("display_none");
+            }
+        }
+        if (all.length == 3) {
+            for (const child of all) {
+                let paraDiv = child.querySelector(".pprr");
+                let contentDiv = child.querySelector(".ccnn");
+                paraDiv.classList.add("display_none");
+                contentDiv.classList.remove("display_none");
+            }
+        }
+        else{
+            all.length = 0;
+        }
+    }
+    
+})
+BODY.addEventListener("click", (ev) => {
+    if (!ev.target.closest("path")) {
+        FRONT.classList.toggle("hide-body");
+        BACK.classList.toggle("hide-body");
+    }
+})
+
+
+let mv_exercises = []
+
+let mv_currentExcerciseIndex = 0;
+
+let currentExerciseIndex = 0;
+
+// Tab Navigation
+const navButtons = document.querySelectorAll('.wo-nav-button');
+const tabContents = document.querySelectorAll('.wo-tab-content');
+
+navButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        navButtons.forEach(btn => btn.classList.remove('wo-active'));
+        tabContents.forEach(content => content.classList.remove('wo-active'));
+
+        button.classList.add('wo-active');
+        const tabId = button.getAttribute('data-tab');
+        document.getElementById(`${tabId}-content`).classList.add('wo-active');
+    });
+});
+
+// Exercise Navigation
+function updateExerciseDisplay(parent,suggestedVideos) {
+	console.log(parent);
+    const video = document.getElementById(`${parent}exercise-video`);
+	let exercise;
+	if(parent=="mv-"){
+		exercise = suggestedVideos[mv_currentExcerciseIndex];
+	}
+	else{
+    	exercise = suggestedVideos[currentExerciseIndex ];
+	}	
+    // Set video source and reload
+    video.setAttribute("src", exercise.video);
+    video.load();
+	if(parent=="mv-"){
+		document.getElementById(`${parent}current-exercise-name`).textContent = suggestedVideos[mv_currentExcerciseIndex ].name.slice(0,suggestedVideos[mv_currentExcerciseIndex ].name.length - 4) +" - "+ suggestedVideos[mv_currentExcerciseIndex ].sets + "x" + suggestedVideos[mv_currentExcerciseIndex ].reps;
+		document.getElementById(`${parent}current-exercise-description`).textContent = suggestedVideos[mv_currentExcerciseIndex].description;
+		}
+	else{
+    	document.getElementById(`${parent}current-exercise-name`).textContent = suggestedVideos[currentExerciseIndex].name +" - "+ suggestedVideos[mv_currentExcerciseIndex ].sets + "x" + suggestedVideos[mv_currentExcerciseIndex ].reps;
+    	document.getElementById(`${parent}current-exercise-description`).textContent = suggestedVideos[currentExerciseIndex].description;
+	}
+    
+    const previewContainer = document.querySelector(`.${parent}wo-preview-container`);
+    previewContainer.innerHTML = '';
+    console.log(suggestedVideos);
+    suggestedVideos.forEach((exercise, index) => {
+		let isNext;
+		if(parent=="mv-"){
+			isNext = (index === ( mv_currentExcerciseIndex + 1 ) % suggestedVideos.length);
+		}
+        else{
+			isNext = (index === ( currentExerciseIndex + 1 ) % suggestedVideos.length);
+		}
+		console.log(exercise.name);
+        const previewCard = document.createElement('div');
+        previewCard.className = `wo-preview ${isNext ? 'next' : ''}`;
+        previewCard.innerHTML = `
+            <div class="wo-thumbnail-wrapper">
+                <img src="images/${exercise.thumbnail || exercise.muscle}.png" alt="${exercise.name}" class="wo-thumbnail">
+                <div class="wo-overlay">
+                    <p class="wo-name">${exercise.name}</p>
+                </div>
+            </div>
+			<p class="wo-description ${parent}close" onclick="deleteManual(this, '${exercise.name}')"></p>
+
+        `;
+        
+        // Add click handler to preview cards
+        
+        
+        previewContainer.appendChild(previewCard);
+    });
+}
+
+function deleteManual(element, exerciseName) {
+	console.log("heheheh");
+    // Find the index of the exercise in the mv_exercises array
+    const indexToRemove = mv_exercises.findIndex(ex => ex.name === exerciseName);
+    
+    if (indexToRemove !== -1) {
+        // Remove the exercise from the array
+        mv_exercises.splice(indexToRemove, 1);
+        
+        // Remove the element from the DOM
+        element.closest('.wo-preview').remove();
+        
+        // Optional: Re-render the exercise display
+        updateExerciseDisplay("mv-", mv_exercises);
+    }
+}
+
+
+function mv_render(){
+	_(".mv-upcoming-exercises").classList.remove("dis_none");
+	_(".mv-video-container").classList.remove("dis_none");
+	_(".mv-exercise-info").style.display ="flex";
+	_(".mv-start-workout-btn").classList.remove("dis_none");
+	_(".no-video-found").classList.add("dis_none");
+	mv_exercises = transformExercises(selectedVideos);
+	updateExerciseDisplay("mv-",mv_exercises);
+}
+function transformExercises(selectedVideos) {
+    return selectedVideos.map((video, index) => ({
+        id: index + 1,
+        name: video.name,
+		sets : video.sets,
+		reps : video.reps,
+		muscle:video.muscle,
+        video: `https://kunto-development.zohostratus.com/${video.name}.mp4`, // Generates a dynamic video path
+        description: `Targets ${video.muscle}`, // You can modify this dynamically if needed
+        thumbnail:this.muscle // Change dynamically if needed
+    }));
+}
+
+
+// Initialize display
+updateExerciseDisplay("",exercises);
+
+
+
+/*function takeRest(but){
+	DURATION=30;
+	let REST_WINDOW= but.closest(".wo-tab-content").querySelector('.rest-video');
+	REST_WINDOW.classList.toggle("active-rest-video");
+	startTimer(REST_WINDOW);
+}*/
+
+
+
+function takeRest(but){
+	
+	
+	if(but.parentElement.parentElement.nextElementSibling.innerText =='START WORKOUT'){
+		console.log("workout not started...")
+		dispPopup("workout not started...")
+		return;
+	} 
+	DURATION=30;
+	let REST_WINDOW= but.closest(".wo-tab-content").querySelector('.rest-video');
+	REST_WINDOW.classList.toggle("active-rest-video");
+	startTimer(REST_WINDOW);
+}
+
+const DEFAULT_COLORS = ['#54DCA0', '#FFC043', '#FF6937'];
+let DURATION = 30; // seconds
+
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+  const bigInt = parseInt(hex, 16);
+  const r = (bigInt >> 16) & 255;
+  const g = (bigInt >> 8) & 255;
+  const b = bigInt & 255;
+  return [r, g, b];
+}
+
+function rgbToHex(rgb) {
+  const r = rgb[0].toString(16).padStart(2, '0');
+  const g = rgb[1].toString(16).padStart(2, '0');
+  const b = rgb[2].toString(16).padStart(2, '0');
+  return `#${r}${g}${b}`;
+}
+
+function interpolateColor(color1, color2, factor = 0.5) {
+  const result = color1.slice();
+  for (let i = 0; i < 3; i++) {
+    result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+  }
+  return result;
+}
+
+function getIntermediateColor(colors, percentage) {
+  if (percentage <= 0) return colors[0];
+  if (percentage >= 100) return colors[colors.length - 1];
+
+  const scaledPercentage = (percentage / 100) * (colors.length - 1);
+  const lowerIndex = Math.floor(scaledPercentage);
+  const upperIndex = lowerIndex + 1;
+  const factor = scaledPercentage - lowerIndex;
+
+  const color1 = hexToRgb(colors[lowerIndex]);
+  const color2 = hexToRgb(colors[upperIndex]);
+  const interpolatedColor = interpolateColor(color1, color2, factor);
+
+  return rgbToHex(interpolatedColor);
+}
+
+function createCircle(color, value = 100) {
+  const px = (300 * value) / 100;
+  return `
+    <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle
+        style="transform: rotateX(180deg) rotate(90deg); transform-origin: 50% 50%;"
+        r="46"
+        cx="50"
+        cy="50"
+        stroke="${color}"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-dashoffset="${px}px"
+        fill="transparent"
+        stroke-dasharray="300px"
+      ></circle>
+    </svg>
+  `;
+}
+
+let startTime;
+let animationFrameId;
+let lastTimeLeft = null;
+
+function updateTimer(REST_WINDOW) {
+  if (!startTime) return;
+
+  const seconds = Math.min((Date.now() - startTime) / 1000, DURATION);
+  const percentage = Math.min((seconds * 100) / DURATION, 100);
+  const timeLeft = Math.ceil(DURATION - seconds);
+  const color = getIntermediateColor(DEFAULT_COLORS, percentage);
+
+
+  if (timeLeft !== lastTimeLeft) {
+    const secondsElement = REST_WINDOW.querySelector('.seconds');
+	console.log(secondsElement);
+    secondsElement.style.color = color;
+    secondsElement.innerHTML = `<span class="number">${timeLeft}</span>`;
+    lastTimeLeft = timeLeft;
+
+  }
+      if(timeLeft==0){
+			REST_WINDOW.classList.remove("active-rest-video");
+
+	}
+
+
+  const progressElement = REST_WINDOW.querySelector('.progress');
+  const circleHtml = createCircle(color, percentage);
+  const existingCircle = progressElement.querySelector('.circle');
+  if (existingCircle) {
+    existingCircle.outerHTML = circleHtml;
+  } else {
+    progressElement.insertAdjacentHTML('beforeend', circleHtml);
+  }
+
+  if (percentage < 100) {
+    animationFrameId = requestAnimationFrame(() => updateTimer(REST_WINDOW));;
+  }
+}
+
+function startTimer(REST_WINDOW) {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+  }
+  lastTimeLeft = null;
+  startTime = Date.now();
+  updateTimer(REST_WINDOW);
+}
+
+
+document.querySelectorAll('#timer').forEach((e)=>{
+	e.innerHTML = `
+	  <div class="wrapper">
+	    <div class="progress">
+	      <div class="seconds"></div>
+	    </div>
+		<div class="rest-btns">
+			<button class="skip-rest" onclick="minus10()">-10</button>
+	    	<button class="skip-rest" onclick="skipRest(this)">Skip</button>
+	    	<button class="skip-rest" onclick="plus10()">+10</button>
+		</div>
+		
+	  </div>
+	`;
+
+});
+
+
+function minus10(){
+	if(DURATION>=10){
+		DURATION-=10;
+	}
+}
+function plus10(){
+	DURATION+=10;
+}
+function skipRest(but){
+	let REST_WINDOW= but.closest(".wo-tab-content").querySelector('.rest-video');
+	REST_WINDOW.classList.toggle("active-rest-video");
+}
+
+//function completeWorkout(parent,but){
+//	
+//	
+//	
+//	if(parent == "mv-"){
+//		console.log("i'm hereeee")
+//		mv_currentExcerciseIndex = (mv_currentExcerciseIndex + 1) % mv_exercises.length;
+//		takeRest(but);
+//		updateExerciseDisplay("mv-",mv_exercises);
+//		
+//	}	
+//	else{
+//		currentExerciseIndex = (currentExerciseIndex + 1) % exercises.length;
+//		takeRest(but)
+//		updateExerciseDisplay("",exercises);
+//	}
+//	       	    CURR_VIDEO.pause();
+//	   CURR_VIDEO.currentTime = 0;
+//    	    CURR_VIDEO.pause();
+//    CURR_VIDEO.currentTime = 0; 
+//}
+
+
+function completeWorkout(parent,but){
+	
+	if(but.parentElement.parentElement.nextElementSibling.innerText =='START WORKOUT'){
+		console.log("workout not started...")
+		dispPopup("workout not started...")
+		return;
+	} 
+	console.log(parent,but)
+	if(parent == "mv-"){
+		console.log("i'm hereeee")
+		mv_currentExcerciseIndex = (mv_currentExcerciseIndex + 1) % mv_exercises.length;
+		if((mv_exercises.length-1) == mv_currentExcerciseIndex){
+			//but.innerText="end";
+			manualStartEndWorkoutBtn.click();
+			dispPopup("workout completed successfully...")
+			CURR_VIDEO.pause();
+		}
+		takeRest(but);
+		updateExerciseDisplay("mv-",mv_exercises);
+		
+	}	
+	else{
+		currentExerciseIndex = (currentExerciseIndex + 1) % exercises.length;
+		if((exercises.length-1) == currentExerciseIndex){
+			console.log(but)
+			console.log("innerTxet")
+			//but.innerText="end";
+			startEndWorkoutBtn.click();
+			dispPopup("workout completed successfully...")
+			CURR_VIDEO.pause();
+		}
+		takeRest(but)
+		updateExerciseDisplay("",exercises);
+	}
+//	    CURR_VIDEO.pause();
+//	   CURR_VIDEO.currentTime = 0;
+//    	CURR_VIDEO.pause();
+//    	CURR_VIDEO.currentTime = 0; 
+}
+
+function addCaloriesBurnedByWorkout(cal,totTime){
+	console.log(totTime)
+	fetch("/kunto/other_activities",{
+	    method: "POST", // Specify method if needed
+    	headers: {
+        "Content-Type": "application/json"
+    },
+    	body: JSON.stringify({
+        activityName: "Workout",
+        activityCal:cal,        
+        activityDate: nowDay,
+        TimeTaken:totTime
+    })
+	
+})
+.then((res)=>{
+		if(res.ok){
+		return res.json();
+	}
+}).then((msg)=>{
+	if(msg.isInserted){
+		            Swal.fire(
+                "saved!",
+                "Your Activity has been saved."
+            );
+            console.log("heeeeeeeeeeeeeeeeeeeeeeee")
+            getOneMonthCalorieData(ONE_MONTH_CAL);
+			getCalData();
+	}
+	
+})
+}
+
+
+
+
+function startWorkout(but){
+	timer.start();
+	let tab_content = but.closest(".wo-tab-content").querySelector(".manual-wo-tab-content");
+	let CURR_VIDEO=but.closest(".wo-tab-content").querySelector(".exercise-video");
+	if(but.innerText == "START WORKOUT"){
+	console.log("crying");
+	
+	but.closest(".wo-tab-content").querySelector("p").classList.add("dis_none");
+	if(tab_content){
+		tab_content.classList.add("dis_none");
+	}
+	console.log(but.closest(".wo-tab-content").querySelector("p"),but.closest(".wo-tab-content").querySelector(".manual-wo-tab-content"))
+	CURR_VIDEO.autoplay=true;
+	CURR_VIDEO.play();
+	but.innerText = "End workout";
+	}
+	else{
+		console.log("dei dei dei");
+		
+		if(tab_content){
+			let calories = 0;
+			for (let i =0 ; i<=mv_currentExcerciseIndex;i++){
+				let ex = mv_exercises[i];
+				calories += +ex.sets * 15; 
+				console.log("selected muscle ",mv_exercises[i].muscle)
+//				BODY.querySelectorAll("."+mv_exercises[i].muscle).forEach(el=>{
+//					console.log(el);
+//					el.classList.add("changeMusceColor")
+//					console.log("after");
+//				});
+				
+				highLightMuscle(mv_exercises[i].muscle);
+				completeWorkoutMuscles.add(mv_exercises[i].muscle);
+				
+				console.log("after123");
+				if(mv_currentExcerciseIndex == i){
+					
+					break;
+				}
+				
+			}
+			
+			localStorage.setItem("complete_workouts",JSON.stringify([...completeWorkoutMuscles]));
+			console.log(calories);
+						addCaloriesBurnedByWorkout(calories,timer.stop());
+
+			selectedVideos = [];
+			tab_content.classList.remove("dis_none");
+			_(".mv-upcoming-exercises").classList.add("dis_none");
+			_(".mv-video-container").classList.add("dis_none");
+			_(".mv-exercise-info").style.display ="none";
+			_(".mv-start-workout-btn").classList.add("dis_none");
+			_(".no-video-found").classList.remove("dis_none");
+			but.innerText = "Start Workout";
+			CURR_VIDEO.pause();
+			
+		}
+		else{
+			let calories = 0;
+			for (let i =0 ; i<=currentExerciseIndex;i++){
+				let ex = exercises[i];
+				calories += +ex.sets * 15; 
+				
+				console.log("selected muscle ",exercises[i].muscle)
+//				BODY.querySelectorAll("."+exercises[i].muscle).forEach(el=>{
+//					console.log(el);
+//					el.classList.add("changeMusceColor")
+//					console.log("after");
+//				});
+				highLightMuscle(exercises[i].muscle);
+				completeWorkoutMuscles.add(exercises[i].muscle);
+
+				if(currentExerciseIndex == i){
+					break;
+				}
+			}
+			localStorage.setItem("complete_workouts",JSON.stringify([...completeWorkoutMuscles]));
+			currentExerciseIndex = 0;
+			updateExerciseDisplay("",exercises);
+			
+			console.log(calories);
+			but.innerText = "Start Workout";
+			addCaloriesBurnedByWorkout(calories,timer.stop());
+			CURR_VIDEO.pause();
+		}
+		
+	}
+}
+
+// Start the timer initially
+
+
+
+
+
+
+
+
+
+
+let wholeVideo={};
+
+// Mock data - replace with your actual data
+const fitnessCategories = [
+  'Triceps',
+  'Biceps',
+  'Chest',
+  'Glutes',
+  'Forearms',
+  'Abs',
+  "Calfs",
+  'Shoulder',
+  'Trap',
+  'Quads',
+  'Hamstring',
+  'Lat'
+];
+
+
+
+// Mock videos - replace with your actual data fetching logic
+
+const MUSCLE_TRAINED=_(".Muscle-trained");
+const SELECT_VIDEOS = document.getElementById("manual-wo-category-select");
+// DOM Elements
+const modal = document.getElementById('manual-wo-modal');
+const addVideoBtn = document.getElementById('manual-wo-add-video-btn');
+const closeBtn = document.getElementById('manual-wo-close-btn');
+const cancelBtn = document.getElementById('manual-wo-cancel-btn');
+const doneBtn = document.getElementById('manual-wo-done-btn');
+const categorySelect = document.getElementById('manual-wo-category-select');
+const videoList = document.getElementById('manual-wo-video-list');
+
+// State
+let selectedVideos = [];
+
+const categories = ['Legs', 'Arms', 'Chest', 'Back', 'Core'];
+const mockVideos = [
+  'Calf Raise on Hack Squat Machine',
+  'Resistance Band Leg Curl',
+  'Rebounder In & Out Jacks',
+  'Rebounder In & Out From Ground',
+  'Cable Hamstring Curl',
+  'Leg Press Machine Normal Stance'
+];
+
+// Initialize category options
+fitnessCategories.forEach(category => {
+  const option = document.createElement('option');
+  option.value = category;
+  option.textContent = category;
+  categorySelect.appendChild(option);
+});
+
+// Event Listeners
+
+addVideoBtn.addEventListener('click', () => {
+  modal.classList.add('active');
+    BODY.addEventListener("click",selectByBody)
+
+    MUSCLE_TRAINED.innerText="Select A Category";
+
+});
+
+closeBtn.addEventListener('click', closeModal);
+cancelBtn.addEventListener('click', closeModal);
+
+// Close modal if clicking outside
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+      closeModal();
+  }
+});
+
+function renderVideoOption(tosearch){
+  mockVideos.forEach(video => {
+    const videoItem = document.createElement('div');
+    videoItem.className = 'manual-wo-video-item';
+    
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    
+    // Find if this video is already selected
+    const selectedVideo = selectedVideos.find(v => v.name === video);
+    checkbox.checked = !!selectedVideo;
+    
+    const label = document.createElement('span');
+    label.textContent = video;
+    
+    // Create sets and reps inputs
+    const inputsContainer = document.createElement('div');
+    inputsContainer.className = 'manual-wo-sets-reps-inputs';
+    
+    // Sets input group
+    const setsGroup = document.createElement('div');
+    setsGroup.className = 'manual-wo-input-group';
+    
+    const setsLabel = document.createElement('label');
+    setsLabel.textContent = 'Sets:';
+    
+    const setsInput = document.createElement('input');
+    setsInput.type = 'number';
+    setsInput.min = '1';
+    setsInput.value = selectedVideo ? selectedVideo.sets : '3';
+    
+    setsGroup.appendChild(setsLabel);
+    setsGroup.appendChild(setsInput);
+    
+    // Reps input group
+    const repsGroup = document.createElement('div');
+    repsGroup.className = 'manual-wo-input-group';
+    
+    const repsLabel = document.createElement('label');
+    repsLabel.textContent = 'Reps:';
+    
+    const repsInput = document.createElement('input');
+    repsInput.type = 'number';
+    repsInput.min = '1';
+    repsInput.value = selectedVideo ? selectedVideo.reps : '12';
+    
+    repsGroup.appendChild(repsLabel);
+    repsGroup.appendChild(repsInput);
+    
+    // Add inputs to container
+    inputsContainer.appendChild(setsGroup);
+    inputsContainer.appendChild(repsGroup);
+    
+    // Show/hide inputs based on checkbox state
+    inputsContainer.style.display = checkbox.checked ? 'flex' : 'none';
+    
+    // Handle checkbox change
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        selectedVideos.push({
+          name: video,
+          sets: parseInt(setsInput.value),
+          reps: parseInt(repsInput.value),
+          muscle : tosearch
+        });
+        inputsContainer.style.display = 'flex';
+      } else {
+        selectedVideos = selectedVideos.filter(v => v.name !== video);
+        inputsContainer.style.display = 'none';
+      }
+      doneBtn.disabled = selectedVideos.length === 0;
+    });
+    
+    // Handle input changes
+    setsInput.addEventListener('change', () => {
+      if (checkbox.checked) {
+        const video = selectedVideos.find(v => v.name === label.textContent);
+        if (video) {
+          video.sets = parseInt(setsInput.value);
+        }
+      }
+    });
+    
+    repsInput.addEventListener('change', () => {
+      if (checkbox.checked) {
+        const video = selectedVideos.find(v => v.name === label.textContent);
+        if (video) {
+          video.reps = parseInt(repsInput.value);
+        }
+      }
+    });
+    
+    videoItem.appendChild(checkbox);
+    videoItem.appendChild(label);
+    videoItem.appendChild(inputsContainer);
+    videoList.appendChild(videoItem);
+  });
+}
+
+
+function getVideos(tosearch){
+	fetch(`/kunto/manual_workout?search=${tosearch}`)
+	.then((res)=>{
+		if(res.ok){
+			return res.json()
+		}
+	})
+	.then((data)=>{
+		wholeVideo=data;
+		mockVideos.length=0;
+		Object.keys(data).forEach((key)=>{
+			mockVideos.push(key);
+		})
+		renderVideoOption(tosearch);
+	})
+}
+categorySelect.addEventListener('change', (e) => {
+  if (e.target.value) {
+      // Clear previous videos
+      videoList.innerHTML = '';
+      getVideos(e.target.value);
+      // Populate video list (using mock data - replace with your actual data fetching)
+
+  } else {
+      videoList.innerHTML = '';
+  }
+});
+
+doneBtn.addEventListener('click', () => {
+  mv_render();
+  console.log('Selected videos:', selectedVideos);
+  closeModal();
+});
+
+// Helper functions
+function toggleVideoSelection(video) {
+  if (selectedVideos.includes(video)) {
+      selectedVideos = selectedVideos.filter(v => v !== video);
+  } else {
+      selectedVideos.push(video);
+  }
+  
+  // Update done button state
+  doneBtn.disabled = selectedVideos.length === 0;
+}
+
+function closeModal() {
+  modal.classList.remove('active');
+      BODY.removeEventListener("click",selectByBody)
+	  MUSCLE_TRAINED.innerText="Muscle Trained Today";
+  
+  categorySelect.value = '';
+  videoList.innerHTML = '';
+  doneBtn.disabled = true;
+}
+
+
+
+
+
+FRONT.querySelectorAll("g").forEach((element) => {
+  element.addEventListener("mouseenter", () => {
+      const id = element.id;
+      
+      if (id) {
+          FRONT.querySelectorAll(`#${id}`).forEach((el) => {
+              el.querySelectorAll("path").forEach((e)=>{
+                e.style.color = "#fe6b8b";
+              }) // Change to any color you prefer
+          });
+      }
+  });
+
+  element.addEventListener("mouseleave", () => {
+      const id = element.id;
+      if (id) {
+        FRONT.querySelectorAll(`#${id}`).forEach((el) => {
+            el.querySelectorAll("path").forEach((e)=>{
+              e.style.color = "";
+            }) // Change to any color you prefer
+        });
+    }
+  });
+});
+
+
+BACK.querySelectorAll("g").forEach((element) => {
+  element.addEventListener("mouseenter", () => {
+      const id = element.id;
+      
+      if (id) {
+          BACK.querySelectorAll(`#${id}`).forEach((el) => {
+              el.querySelectorAll("path").forEach((e)=>{
+                e.style.color = "#fe6b8b";
+              }) // Change to any color you prefer
+          });
+      }
+  });
+
+  element.addEventListener("mouseleave", () => {
+      const id = element.id;
+      if (id) {
+        BACK.querySelectorAll(`#${id}`).forEach((el) => {
+            el.querySelectorAll("path").forEach((e)=>{
+              e.style.color = "";
+            }) // Change to any color you prefer
+        });
+    }
+  });
+});
+
+function triggerVideoLists(name){
+	SELECT_VIDEOS.value=name;
+	SELECT_VIDEOS.dispatchEvent(new Event("change"));
+
+}
+
+function selectByBody(ev){
+  console.log(ev.target.classList[0]);
+  if(ev.target.classList[0]){
+	triggerVideoLists(ev.target.classList[0])
+  }
+  
+}
+
+
+
+
+// Fitness categories defined in JavaScript
+const logDidFitnessCategories = [
+  'Legs',
+  'Triceps',
+  'Biceps',
+  'Chest',
+  'Glutes',
+  'Forearms',
+  'Abs',
+  'Calfs',
+  'Shoulder',
+  'Traps',
+  'Quads',
+  'Hamstring',
+  'Lat'
+];
+
+// Mock videos - replace with your actual data fetching logic
+const logDidMockVideos = [
+  'Calf Raise on Hack Squat Machine',
+  'Resistance Band Leg Curl',
+  'Rebounder In & Out Jacks',
+  'Rebounder In & Out From Ground',
+  'Cable Hamstring Curl',
+  'Leg Press Machine Normal Stance'
+];
+
+// DOM Elements
+/*const logDidModal = document.getElementById('log-did-modal');
+*/const logDidAddVideoBtn = document.getElementById('log-did-add-video-btn');
+const logDidCloseBtn = document.getElementById('log-did-close-btn');
+const logDidCancelBtn = document.getElementById('log-did-cancel-btn');
+const logDidDoneBtn = document.getElementById('log-did-done-btn');
+const logDidCategorySelect = document.getElementById('log-did-category-select');
+const logDidVideoList = document.getElementById('log-did-video-list');
+const logDidMuscleTrained = document.getElementById('log-did-muscle-trained');
+const logDidNotFound = document.getElementById('log-did-not-found');
+
+// State
+let logDidSelectedVideos = [];
+let logDidWholeVideo = {};
+
+// Initialize category options
+function logDidPopulateCategories() {
+  // Clear existing options except the first one
+  while (logDidCategorySelect.options.length > 1) {
+    logDidCategorySelect.remove(1);
+  }
+  
+  // Add new options from the categories array
+  logDidFitnessCategories.forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category;
+    logDidCategorySelect.appendChild(option);
+  });
+}
+
+// Render video options
+function logDidRenderVideoOptions(cat) {
+  // Clear previous videos
+  logDidVideoList.innerHTML = '';
+  
+  logDidMockVideos.forEach(video => {
+    const videoItem = document.createElement('div');
+    videoItem.className = 'log-did-video-item';
+    
+    const videoHeader = document.createElement('div');
+    videoHeader.className = 'log-did-video-item-header';
+    
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    
+    // Find if this video is already selected
+    const selectedVideo = logDidSelectedVideos.find(v => v.name === video);
+    checkbox.checked = !!selectedVideo;
+    
+    const label = document.createElement('span');
+    label.textContent = video;
+    
+    videoHeader.appendChild(checkbox);
+    videoHeader.appendChild(label);
+    
+    // Create sets and reps inputs
+    const inputsContainer = document.createElement('div');
+    inputsContainer.className = 'log-did-sets-reps-inputs';
+    
+    // Sets input group
+    const setsGroup = document.createElement('div');
+    setsGroup.className = 'log-did-input-group';
+    
+    const setsLabel = document.createElement('label');
+    setsLabel.textContent = 'Sets:';
+    
+    const setsInput = document.createElement('input');
+    setsInput.type = 'number';
+    setsInput.min = '1';
+    setsInput.value = selectedVideo ? selectedVideo.sets : '3';
+    
+    setsGroup.appendChild(setsLabel);
+    setsGroup.appendChild(setsInput);
+    
+    // Reps input group
+    const repsGroup = document.createElement('div');
+    repsGroup.className = 'log-did-input-group';
+    
+    const repsLabel = document.createElement('label');
+    repsLabel.textContent = 'Reps:';
+    
+    const repsInput = document.createElement('input');
+    repsInput.type = 'number';
+    repsInput.min = '1';
+    repsInput.value = selectedVideo ? selectedVideo.reps : '12';
+    
+    repsGroup.appendChild(repsLabel);
+    repsGroup.appendChild(repsInput);
+    
+    // Add inputs to container
+    inputsContainer.appendChild(setsGroup);
+    inputsContainer.appendChild(repsGroup);
+    
+    // Show/hide inputs based on checkbox state
+    inputsContainer.style.display = checkbox.checked ? 'flex' : 'none';
+    
+    // Handle checkbox change
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        logDidSelectedVideos.push({
+          name: video,
+          sets: parseInt(setsInput.value),
+          reps: parseInt(repsInput.value),
+          muscle:cat
+        });
+        inputsContainer.style.display = 'flex';
+      } else {
+        logDidSelectedVideos = logDidSelectedVideos.filter(v => v.name !== video);
+        inputsContainer.style.display = 'none';
+      }
+      logDidDoneBtn.disabled = logDidSelectedVideos.length === 0;
+    });
+    
+    // Handle input changes
+    setsInput.addEventListener('change', () => {
+      if (checkbox.checked) {
+        const video = logDidSelectedVideos.find(v => v.name === label.textContent);
+        if (video) {
+          video.sets = parseInt(setsInput.value);
+        }
+      }
+    });
+    
+    repsInput.addEventListener('change', () => {
+      if (checkbox.checked) {
+        const video = logDidSelectedVideos.find(v => v.name === label.textContent);
+        if (video) {
+          video.reps = parseInt(repsInput.value);
+        }
+      }
+    });
+    
+    videoItem.appendChild(videoHeader);
+    videoItem.appendChild(inputsContainer);
+    logDidVideoList.appendChild(videoItem);
+  });
+}
+
+// Mock function to get videos - replace with actual API call
+function logDidGetVideos(category) {
+  // In a real implementation, this would be an API call
+  console.log(`Fetching videos for category: ${category}`);
+  
+  // For demo purposes, we're just using the mock videos
+  // In a real implementation, you would fetch data from your API
+  
+  fetch(`/kunto/manual_workout?search=${category}`)
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      }
+    })
+    .then((data) => {
+      logDidWholeVideo = data;
+      logDidMockVideos.length = 0;
+      Object.keys(data).forEach((key) => {
+        logDidMockVideos.push(key);
+      });
+      logDidRenderVideoOptions(category);
+    });
+
+  
+  // For demo, just render the mock videos
+}
+
+// Event Listeners
+logDidAddVideoBtn.addEventListener('click', () => {
+  logDidMuscleTrained.innerText = "Select A Category";
+  logDidNotFound.classList.remove('log-did-show-flex');
+});
+
+logDidCloseBtn.addEventListener('click', logDidCloseModal);
+logDidCancelBtn.addEventListener('click', logDidCloseModal);
+
+// Close modal if clicking outside
+/*logDidModal.addEventListener('click', (e) => {
+  if (e.target === logDidModal) {
+    logDidCloseModal();
+  }
+});*/
+
+logDidCategorySelect.addEventListener('change', (e) => {
+  if (e.target.value) {
+    logDidGetVideos(e.target.value);
+  } else {
+    logDidVideoList.innerHTML = '';
+  }
+});
+
+logDidDoneBtn.addEventListener('click', () => {
+  console.log('Selected videos:', logDidSelectedVideos);
+  addCaloriesBurnedByWorkout(calculateCaloriesBurned(logDidSelectedVideos),'00:00:00');
+    logDidCloseModal();
+
+  // Show the not found message after clicking Done
+  logDidNotFound.classList.add('log-did-show-flex');
+});
+// Helper functions
+function logDidCloseModal() {
+/*  logDidModal.classList.remove('active');
+*/  logDidMuscleTrained.innerText = "Muscle Trained Today";
+  
+  logDidCategorySelect.value = '';
+  logDidVideoList.innerHTML = '';
+  logDidDoneBtn.disabled = true;
+  logDidSelectedVideos = [];
+}
+
+// Initialize the app
+function logDidInit() {
+  logDidPopulateCategories();
+}
+
+// Initialize when the page loads
+document.addEventListener('DOMContentLoaded', logDidInit);
+
+
+
+function calculateCaloriesBurned(exercises) {
+    const caloriesPerRep = 0.1; // Adjust this value if needed
+    let totalCalories = 0;
+
+    exercises.forEach(exercise => {
+        let exerciseCalories = exercise.sets * exercise.reps * caloriesPerRep;
+        totalCalories += exerciseCalories;
+    });
+
+    return totalCalories.toFixed(2);
+}
+
+function initialWorkoutHighLight(){
+	
+	completeWorkoutMuscles =new Set(JSON.parse(localStorage.getItem("complete_workouts")) || "[]");
+	
+	completeWorkoutMuscles.forEach((m)=>{
+		if(m!='[' && m!=']'){
+			highLightMuscle(m);
+		}
+		
+	})
+}
+
+initialWorkoutHighLight();
+
+function highLightMuscle(muscle){
+	BODY.querySelectorAll("."+muscle).forEach(el=>{
+					console.log(el);
+					el.classList.add("changeMusceColor")
+					console.log("after");
+	});
+	
+	
+}
+
+
+
+
+
+
+
+
+
+

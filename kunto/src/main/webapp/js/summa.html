@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SweetAlert Sleep Time</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+<script>
+ // Call the function when the page loads
+ function askSleepTime() {
+        Swal.fire({
+            title: "Sleep Tracker",
+            html: `
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%;">
+                    <div style="display: flex; flex-direction: column; width: 100%; max-width: 320px; text-align: left;">
+                        <label for="sleepTime" style="font-weight: bold; margin-bottom: 5px;">Sleep Time</label>
+                        <input type="time" id="sleepTime" class="swal2-input" style="width: 100%;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; width: 100%; max-width: 320px; text-align: left;">
+                        <label for="wakeTime" style="font-weight: bold; margin-bottom: 5px;">Wake Up Time</label>
+                        <input type="time" id="wakeTime" class="swal2-input" style="width: 100%;">
+                    </div>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: "Submit",
+            cancelButtonText: "Cancel",
+            focusConfirm: false,
+            preConfirm: () => {
+                const sleepTime = document.getElementById("sleepTime").value;
+                const wakeTime = document.getElementById("wakeTime").value;
+
+                if (!sleepTime || !wakeTime) {
+                    Swal.showValidationMessage("Please enter both times!");
+                }
+
+                return { sleepTime, wakeTime };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log("Sleep Time:", result.value.sleepTime);
+                console.log("Wake Up Time:", result.value.wakeTime);
+                Swal.fire("Saved!", `You slept at ${result.value.sleepTime} and woke up at ${result.value.wakeTime}`, "success");
+            }
+        });
+    }
+
+    askSleepTime(); 
+</script>
+
+</body>
+</html>

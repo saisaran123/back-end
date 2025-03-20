@@ -1,0 +1,836 @@
+
+
+const foodList = [
+  // Popular Indian Breakfast Dishes
+  "Idli", "Dosa", "Vada", "Uttapam", "Pongal", "Upma", "Poha", "Sabudana Khichdi", "Aloo Paratha", "Paneer Paratha",
+  "Methi Paratha", "Mooli Paratha", "Puri Bhaji", "Chole Bhature", "Misal Pav", "Thepla", "Khaman Dhokla", "Handvo",
+  "Muthiya", "Appam", "Neer Dosa", "Ragi Dosa", "Adai", "Thalipeeth", "Sheer Khurma", "Dal Pakwan", "Kanda Poha",
+  "Besan Chilla", "Pesarattu", "Bread Pakora", "Mysore Bonda", "Ghavan", "Dhuska", "Pathiri", "Bafla Bati", "Chakuli Pitha",
+
+  // Rice Dishes
+  "Plain Rice", "Jeera Rice", "Ghee Rice", "Curd Rice", "Lemon Rice", "Tomato Rice", "Coconut Rice", "Tamarind Rice",
+  "Sambar Rice", "Bisi Bele Bath", "Khichdi", "Pulao", "Vegetable Biryani", "Hyderabadi Biryani", "Ambur Biryani",
+  "Thalassery Biryani", "Kashmiri Pulao", "Mughlai Biryani", "Yakhni Pulao", "Bagara Rice", "Egg Biryani", "Mutton Biryani",
+  "Chicken Biryani", "Fish Biryani", "Prawn Biryani", "Kuska", "Gongura Rice", "Ven Pongal", "Pulihora", "Rajma Chawal",
+
+  // Indian Breads
+  "Chapati", "Roti", "Naan", "Butter Naan", "Garlic Naan", "Tandoori Roti", "Missi Roti", "Kulcha", "Bhature", "Puri",
+  "Lachha Paratha", "Malabar Paratha", "Rumali Roti", "Makki Ki Roti", "Bajra Roti", "Jowar Roti", "Tandoori Kulcha",
+  "Sheermal", "Khoba Roti", "Chawal Ki Roti", "Puran Poli", "Thalipeeth", "Sattu Paratha", "Mughlai Paratha", "Akki Roti",
+  "Radhaballavi", "Phulka", "Kuttu Roti", "Pathiri",
+
+  // Vegetarian Curries
+  "Dal Tadka", "Dal Makhani", "Rajma Masala", "Chana Masala", "Aloo Gobi", "Bhindi Masala", "Baingan Bharta", "Methi Malai Matar",
+  "Dum Aloo", "Gatte Ki Sabzi", "Palak Paneer", "Paneer Butter Masala", "Shahi Paneer", "Matar Paneer", "Malai Kofta",
+  "Navratan Korma", "Kadhi Pakora", "Lauki Chana Dal", "Aloo Methi", "Jackfruit Curry", "Soya Chaap Masala", "Chole Palak",
+  "Undhiyu", "Sindhi Kadhi", "Sarson Da Saag", "Bagara Baingan", "Dal Dhokli", "Vazhaipoo Poriyal", "Kootu", "Banarasi Dum Aloo",
+  "Bhindi Do Pyaza", "Chorchori", "Sev Tamatar", "Kashmiri Dum Aloo", "Patra Curry",
+
+  // Non-Vegetarian Dishes
+  "Butter Chicken", "Chicken Curry", "Chicken Korma", "Chicken 65", "Tandoori Chicken", "Mutton Curry", "Mutton Rogan Josh",
+  "Mutton Korma", "Keema Matar", "Egg Curry", "Egg Masala", "Prawn Curry", "Fish Curry", "Goan Fish Curry", "Chettinad Chicken",
+  "Hyderabadi Haleem", "Surmai Fry", "Tandoori Pomfret", "Kolhapuri Chicken", "Chicken Tikka Masala", "Chicken Sukka",
+  "Mutton Paya", "Duck Roast", "Bengali Macher Jhol", "Kerala Meen Curry", "Malabar Prawn Curry", "Mysore Chicken Curry",
+  "Patiala Chicken", "Rara Mutton", "Kosha Mangsho", "Laal Maas",
+
+  // Street Food
+  "Pani Puri", "Dahi Puri", "Sev Puri", "Bhel Puri", "Ragda Pattice", "Dabeli", "Vada Pav", "Misal Pav", "Pav Bhaji",
+  "Kachori", "Samosa", "Dhokla", "Khandvi", "Aloo Tikki", "Egg Roll", "Momos", "Litti Chokha", "Keema Pav", "Aloo Chaat",
+  "Jhalmuri", "Kathi Roll", "Pakora", "Chaat Papdi", "Mirchi Bajji", "Ghugni Chaat", "Batata Vada", "Masala Papad",
+  "Tandoori Momos", "Dabeli", "Kuttu Pakora",
+
+  // Indian Sweets
+  "Gulab Jamun", "Rasgulla", "Rasmalai", "Jalebi", "Kaju Katli", "Motichoor Ladoo", "Besan Ladoo", "Mysore Pak",
+  "Sandesh", "Malpua", "Puran Poli", "Shrikhand", "Badam Halwa", "Gajar Halwa", "Moong Dal Halwa", "Double Ka Meetha",
+  "Payasam", "Phirni", "Rabri", "Cham Cham", "Kala Jamun", "Soan Papdi", "Balushahi", "Chhena Poda", "Shahi Tukda",
+  "Basundi", "Kharvas", "Modak", "Thekua", "Khubani Ka Meetha", "Ada Pradhaman", "Gavvalu", "Chena Kheeri",
+
+  // Indian Beverages
+  "Masala Chai", "Filter Coffee", "Badam Milk", "Thandai", "Aam Panna", "Jaljeera", "Sattu Drink", "Nimbu Pani",
+  "Sugarcane Juice", "Lassi", "Mango Lassi", "Buttermilk", "Sol Kadhi", "Kokum Sharbat", "Falooda", "Rose Milk",
+  "Tender Coconut Water", "Cold Coffee", "Chaas", "Sulaimani Chai", "Kesar Milk", "Jigarthanda",
+
+  // Pickles & Chutneys
+  "Mango Pickle", "Lime Pickle", "Amla Pickle", "Garlic Pickle", "Gongura Pickle", "Tomato Pickle", "Coconut Chutney",
+  "Peanut Chutney", "Mint Chutney", "Coriander Chutney", "Imli Chutney", "Ginger Chutney",
+
+  // Fusion Indian Foods
+  "Tandoori Pasta", "Paneer Tikka Pizza", "Biryani Arancini", "Indo-Chinese Fried Rice", "Chilli Paneer", "Gobi Manchurian"
+];
+
+let foodData={};
+let selectedFoodObj = {};
+let selectedFood=[];
+let currNutrition={};
+
+const PLUS_BTN=_(".plus-food");
+const FOOD_SUGGEST=_(".food-suggession")
+ const ctx = document.getElementById('lineGraph').getContext('2d');
+ const SEARCH=FOOD_SUGGEST.querySelector(".meal-search");
+ const FOOD_AREA=FOOD_SUGGEST.querySelector(".food-search-area")
+ const FOOD_ITEMS=FOOD_SUGGEST.querySelector(".food-items");
+const SHOW_MORE=FOOD_SUGGEST.querySelector(".food-search-show-more");
+const SEARCH_IMAGE=FOOD_SUGGEST.querySelector(".search-image");
+const overlay = document.querySelector('.overlay');
+const MEAL_DONE=FOOD_SUGGEST.querySelector(".meal-search-done");
+const MEAL_TIME=FOOD_SUGGEST.querySelector(".meal-time");
+
+const KM_WALKED=_(".km-walked");
+const STAT_VALUE=_(".sleep-cycle");
+const TOT_CAL_BURN=_(".cal-burn-ac");
+
+
+const NU_HAB=document.querySelector(".nu-habits-card");
+const breakfast=NU_HAB.querySelector(".calinf-b");
+const lunch=NU_HAB.querySelector(".calinf-l")
+const dinner=NU_HAB.querySelector(".calinf-d")
+const snacks=NU_HAB.querySelector(".calinf-s")
+const calorie=NU_HAB.querySelector(".progress-text");
+
+const prot_progress=_(".progress-bar");
+const carbs_progress=_(".progress-bar-1");
+const fat_progress=_(".progress-bar-2");
+const fib_progress=_(".progress-bar-3");
+const prot_stat=_(".Protein-stat");
+const carbs_stat=_(".Carbohydrates-stat");
+const fat_stat=_(".Fat-stat");
+const fib_stat=_(".Fibre-stat");
+const TOT_WO_TIME_D=_(".tot-wo-time");
+
+const water_stat=_(".water-stat");
+
+const LOGS=_(".food-logs");
+ let currentLevel = 10;
+
+let date_now = new Date();
+let formattedDate = date_now.toISOString().split("T")[0];
+const days = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY","SUNDAY"];
+const currentWeekday = days[(date_now.getDay() + 6) % 7]; 
+let dataShowndate=formattedDate;
+
+ const waterFill = document.querySelector('.water-fill');
+            const percentage = document.querySelector('.percentage');
+            const addWaterBtn = document.getElementById('addWater');
+            const removeWaterBtn = document.getElementById('removeWater');
+
+
+
+
+
+let count_more=0;
+let spinner = document.querySelector(".loading-spinner");
+    const labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+
+    let revenueData = [1200,2000,2100,2012,3000,1234,3210];
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Calorie Intake',
+            data: new Array(labels.length).fill(null), // Start with empty data
+            borderColor: '#42A5F5',
+            backgroundColor: 'rgba(66, 165, 245, 0.2)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 3,
+            pointBackgroundColor: '#42A5F5',
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return  tooltipItem.raw;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return  value;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    function animateChart() {
+      let progress = 0; // Controls animation progress
+      const speed = 0.02; // Adjust speed (smaller = slower)
+
+      function step() {
+        progress += speed;
+
+        if (progress > 1) {
+          progress = 1; // Stop animation when full
+        }
+
+        chart.data.datasets[0].data = revenueData.map((val, i) => {
+          return i < labels.length * progress ? val : null;
+        });
+
+        chart.update();
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      }
+      step();
+    }
+
+    animateChart();
+
+
+
+
+           
+
+           
+
+            function updateWaterLevel(targetPercentage) {
+                const clampedPercentage = Math.min(100, Math.max(10, targetPercentage));
+                waterFill.style.height = `${clampedPercentage}%`;
+                percentage.textContent = `${Math.round(clampedPercentage - 10)}%`;
+            }
+            addWaterBtn.addEventListener('click', () => {
+				if(dataShowndate==formattedDate){
+					         logWater("increment");
+
+				}
+            });
+
+            removeWaterBtn.addEventListener('click', () => {
+				if(currNutrition.daily_intake){
+					if(currNutrition.daily_intake.total_water>0){
+						if(dataShowndate==formattedDate){
+							logWater("decrement");
+
+						}
+
+					}
+
+				}
+
+
+            });
+            updateWaterLevel(currentLevel);
+
+
+PLUS_BTN.addEventListener("click",()=>{
+
+	if(dataShowndate==formattedDate){
+		  FOOD_SUGGEST.classList.toggle("food-suggession-open");
+  overlay.classList.toggle("activeO")
+  PLUS_BTN.classList.toggle("rotate-plus-btn");
+
+
+	}
+
+
+})
+
+function checkCursor(){
+	if(formattedDate!=dataShowndate){
+		PLUS_BTN.style.cursor="not-allowed"
+		addWaterBtn.style.cursor="not-allowed";
+		removeWaterBtn.style.cursor="not-allowed";
+	}
+	else{
+				PLUS_BTN.style.cursor="pointer"
+		addWaterBtn.style.cursor="pointer";
+		removeWaterBtn.style.cursor="pointer";
+	}
+}
+
+function logWater(type){
+	fetch("/kunto/logWater",{
+		method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify({
+			user_id:1,
+			type:type
+		}) 
+	})
+	.then((res)=>{
+			if(res.status==200){
+				return res.json();
+			}
+		}) 
+	.then(data => {
+			console.log("hehe");
+	        if(data.message=="successfull"){
+				getLogInfo(formattedDate);
+			}
+	    })
+	    .catch(error => {
+	        console.error("Error:", error);
+	    });
+}
+
+
+// Change option selected
+const label = document.querySelector('.dropdown__filter-selected')
+const options = Array.from(document.querySelectorAll('.dropdown__select-option'))
+
+options.forEach((option) => {
+	option.addEventListener('click', () => {
+		label.textContent = option.textContent
+	})
+})
+
+// Close dropdown onclick outside
+document.addEventListener('click', (e) => {
+	const toggle = document.querySelector('.dropdown__switch')
+	const element = e.target
+
+	if (element == toggle) return;
+
+	const isDropdownChild = element.closest('.dropdown__filter')		
+	
+	if (isDropdownChild) {
+		toggle.checked = false
+	}
+})
+
+document.addEventListener("DOMContentLoaded", function () {
+  const dropdownButton = document.querySelector(".select-dropdown__button");
+  const dropdownList = document.querySelector(".select-dropdown__list");
+  const dropdownItems = document.querySelectorAll(".select-dropdown__list-item");
+
+  dropdownButton.addEventListener("click", function () {
+      dropdownList.classList.toggle("active");
+  });
+
+  dropdownItems.forEach(item => {
+      item.addEventListener("click", function () {
+          const itemValue = this.dataset.value;
+          console.log(itemValue);
+          dropdownButton.querySelector("span").textContent = this.textContent;
+          dropdownButton.setAttribute("data-value", itemValue);
+          dropdownList.classList.remove("active");
+      });
+  });
+
+  // Close dropdown when clicking outside
+document.addEventListener("click", function (event) {
+      if (!dropdownButton.contains(event.target) && !dropdownList.contains(event.target)) {
+          dropdownList.classList.remove("active");
+      }
+  });
+});
+
+
+
+const searchInput = document.querySelector(".meal-search");
+const suggestionsBox = document.createElement("div");
+suggestionsBox.classList.add("suggestions-box");
+document.querySelector(".meal-search-wrap").appendChild(suggestionsBox);
+
+function showSuggestions(filteredFoods) {
+    suggestionsBox.innerHTML = "";
+    if (filteredFoods.length === 0) {
+        suggestionsBox.style.display = "none";
+        return;
+    }
+    suggestionsBox.style.display = "block";
+
+    filteredFoods.forEach(food => {
+        const suggestionItem = document.createElement("div");
+        suggestionItem.classList.add("suggestion-item");
+        suggestionItem.textContent = food;
+        suggestionItem.addEventListener("click", () => {
+            searchInput.value = food;
+            suggestionsBox.innerHTML = "";
+            suggestionsBox.style.display = "none";
+        });
+        suggestionsBox.appendChild(suggestionItem);
+    });
+}
+
+searchInput.addEventListener("input", () => {
+    const userInput = searchInput.value.trim().toLowerCase();
+    if (!userInput) return;
+    const filteredFoods = foodList.filter(food => food.toLowerCase().includes(userInput));
+    showSuggestions(filteredFoods);
+});
+
+FOOD_SUGGEST.addEventListener("click", (e) => {
+    if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+        suggestionsBox.style.display = "none";
+
+    }
+
+    if(e.target.classList.contains("meal-search-btn")){
+        if(SEARCH.value.trim()){
+SEARCH_IMAGE.classList.add("none");
+			spinner.classList.remove("none");
+          searchRecipe(SEARCH.value);
+        }
+    }
+    if(e.target.classList.contains("food-search-show-more")){
+      if(count_more<=2){
+      renderSearchedFoods(3*(count_more+1),(3*(count_more+1))+3,true);
+		count_more++;
+      }
+      else{
+      	count_more=0;
+      }
+    }
+    if(e.target.classList.contains("cl-se")){
+		PLUS_BTN.click();
+	}
+	if(e.target.closest(".foodData")){
+				let selectedItemInfo=getFoodInfo(e.target.closest(".foodData").id);
+
+		if(!e.target.closest(".foodData").classList.contains("selected-food")){
+			
+			askQuantity().then(quantity => 	{
+						  		if (quantity !== null) {
+									selectedItemInfo.grams=quantity;
+									let temp=selectedItemInfo;
+									selectedFood.push(temp);
+									}
+									else{
+										e.target.closest(".foodData").classList.toggle("selected-food");
+										return;
+									}
+						});
+			
+		}else{
+			delete selectedFood[selectedItemInfo.foodName];
+		}
+		e.target.closest(".foodData").classList.toggle("selected-food");
+			
+	}
+});
+// });
+
+async function askQuantity(){
+	 const result = await Swal.fire({
+    title: '<span class="quantity-title">Enter Quantity in Grams..</span>',
+    html: `
+      <input type="number" id="quantity" class="quantity-input" min="1" value="1">
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
+    customClass: {
+      popup: 'quantity-popup',
+      confirmButton: 'quantity-confirm-btn',
+      cancelButton: 'quantity-cancel-btn'
+    },
+    preConfirm: () => {
+      const quantity = Number(document.getElementById('quantity').value);
+      if (quantity < 1) {
+        Swal.showValidationMessage('Please enter a valid quantity');
+        return false;
+      }
+	  return quantity;
+    }
+  });
+
+  if (result.isConfirmed) {
+    Swal.fire({
+      title: 'Success!',
+      text: `Quantity set to: ${result.value}`,
+      icon: 'success'
+    });
+  }
+  return result.value;
+}
+
+function createFood(img, foodName, cal, prot, carbs, fat,fibre,id) {
+    // Create main container
+    let foodData = document.createElement("div");
+    foodData.classList.add("foodData");
+	foodData.id=id;
+    // Create image wrapper
+    let imageWrap = document.createElement("div");
+    imageWrap.classList.add("image-wrap-search");
+    let foodImg = document.createElement("img");
+    foodImg.src = img;
+    foodImg.alt = foodName;
+    foodImg.classList.add("food-img");
+    imageWrap.appendChild(foodImg);
+    let foodInfo = document.createElement("div");
+    foodInfo.classList.add("food-info");
+    let nameElement = document.createElement("p");
+    nameElement.classList.add("food-name");
+    nameElement.textContent = foodName;
+    let foodStats = document.createElement("div");
+    foodStats.classList.add("food-stats");
+	
+    let stats = [
+        { label: "Cal", value: cal },
+        { label: "Protein", value: prot + "g" },
+        { label: "Carbs", value: carbs + "g" },
+        { label: "Fat", value: fat + "g" },
+		{label:"Fiber",value:fibre + "g"}
+    ];
+
+    stats.forEach(stat => {
+        let statElement = document.createElement("p");
+        statElement.textContent = `${stat.label}: ${stat.value}`;
+        foodStats.appendChild(statElement);
+    });
+
+    foodInfo.appendChild(nameElement);
+    foodInfo.appendChild(foodStats);
+    foodData.appendChild(imageWrap);
+    foodData.appendChild(foodInfo);
+
+    return foodData;
+}
+function renderSearchedFoods(ini,fin,ismore){
+	
+	if(!foodData.hits.length){
+const span = document.createElement("span");
+span.className = "food-not-found-text";
+span.textContent = "Food Not Found!";
+
+FOOD_ITEMS.appendChild(span);
+		SHOW_MORE.classList.add("marachidu")
+		return;
+	}
+	if(count_more>=2){
+	        SHOW_MORE.classList.add("marachidu");
+
+}
+  if(!ismore){
+	let rem=FOOD_SUGGEST.querySelectorAll(".foodData");
+	rem.forEach((el)=>{
+		el.remove();
+	})
+  }
+	
+    for(i=ini;i<fin;i++){
+		let food_not_found=_(".food-not-found-text");
+		if(food_not_found){
+			food_not_found.classList.add("marachidu");
+		}
+      let img=foodData.hits[i].recipe.images.REGULAR.url;
+		let obj=getFoodInfo(i);
+		console.log(obj);
+		FOOD_ITEMS.appendChild(createFood(img,obj.name,obj.calories,obj.protein,obj.carbs,obj.fat,obj.fiber,i));
+
+    }
+      
+  
+
+}
+function getFoodInfo(i){
+		  let ratio = foodData.hits[i].recipe.totalWeight / 100;
+
+	      let foodName=foodData.hits[i].recipe.label;
+      let cal=Math.round(foodData.hits[i].recipe.calories/ ratio);
+      let prot=Math.round(foodData.hits[i].recipe.totalNutrients["PROCNT"].quantity / ratio);
+      let carbs=Math.round(foodData.hits[i].recipe.totalNutrients["CHOCDF.net"].quantity / ratio);
+      let fat=Math.round(foodData.hits[i].recipe.totalNutrients["FAT"].quantity / ratio);
+	  let fibre=Math.round(foodData.hits[i].recipe.totalNutrients["FIBTG"].quantity/ ratio);
+	  return {
+		"name":foodName,
+		"calories":cal,
+		"protein":prot,
+		"carbs":carbs,
+		"fat":fat,
+		"fiber":fibre
+	  }						
+}
+
+
+function searchRecipe(recipe){
+  fetch(`searchRecipe?recipe=${recipe}`)
+  .then((res)=>{
+    if(res.ok){
+      return res.json();
+    }
+  }).then((data)=>{
+    foodData=data;
+  
+    spinner.classList.add("none");
+    renderSearchedFoods(0,3,false)
+      SHOW_MORE.classList.remove("none");
+
+  })
+  .catch((err)=>{
+	console.log(err)
+  })
+  
+  
+}
+
+MEAL_DONE.addEventListener("click",()=>{
+	
+	selectedFoodObj.meal_type=MEAL_TIME.innerText;
+	
+	PLUS_BTN.click();
+		let rem=FOOD_SUGGEST.querySelectorAll(".foodData");
+	rem.forEach((el)=>{
+		el.remove();
+	})
+	SHOW_MORE.classList.add("none");
+	SEARCH_IMAGE.classList.remove("none");
+	putlogInfo();
+	selectedFood=[];
+	selectedFoodObj={};
+})
+
+
+function renderLogInfo(){
+	breakfast.innerText=+currNutrition.meal_time.breakfast.toFixed(2);
+	lunch.innerText=+currNutrition.meal_time.lunch.toFixed(2);
+	dinner.innerText=+currNutrition.meal_time.dinner.toFixed(2);
+	snacks.innerText=+currNutrition.meal_time.snacks.toFixed(2);
+	calorie.innerText=+currNutrition.daily_intake.total_calories+"/"+ +currNutrition.goal.goal_calories;
+	
+	prot_stat.innerText=currNutrition.daily_intake.total_protein+"gm / "+currNutrition.goal.goal_protein+"gm";
+	carbs_stat.innerText=currNutrition.daily_intake.total_carbs+"gm / "+currNutrition.goal.goal_carbs+"gm";
+	fat_stat.innerText=currNutrition.daily_intake.total_fat+"gm / "+currNutrition.goal.goal_fat+"gm";
+	fib_stat.innerText=currNutrition.daily_intake.total_fiber+"gm / "+currNutrition.goal.goal_fiber+"gm";
+	
+	prot_progress.style.width= ((+currNutrition.daily_intake.total_protein / +currNutrition.goal.goal_protein) * 100)+"%";
+	carbs_progress.style.width= ((+currNutrition.daily_intake.total_carbs / +currNutrition.goal.goal_carbs) * 100)+"%";
+	fat_progress.style.width= ((+currNutrition.daily_intake.total_fat / +currNutrition.goal.goal_fat) * 100)+"%";
+	fib_progress.style.width= ((+currNutrition.daily_intake.total_fiber / +currNutrition.goal.goal_fiber) * 100)+"%";
+	let cal=(+currNutrition.daily_intake.total_calories / +currNutrition.goal.goal_calories) * 100;
+	updateProgress(cal);
+	updateWaterLevel(currentLevel + (currNutrition.daily_intake.total_water/ +currNutrition.goal.goal_water * 90));
+	water_stat.innerText=currNutrition.daily_intake.total_water+" ml / "+currNutrition.goal.goal_water+" ml";
+	renderCalorieData(currNutrition.calorie_intake_data);
+	addLog();
+	renderNutritionData();
+	let pro=((+currNutrition.daily_intake.total_protein / +currNutrition.goal.goal_protein) * 100);
+	let carb=((+currNutrition.daily_intake.total_carbs / +currNutrition.goal.goal_carbs) * 100);
+	let fat=((+currNutrition.daily_intake.total_fat / +currNutrition.goal.goal_fat) * 100);
+	let wat=currentLevel + (currNutrition.daily_intake.total_water/ +currNutrition.goal.goal_water * 90);
+	renderDashboardRing(pro,carb,fat,wat)
+	checkAndSend(pro,carb,fat,(+currNutrition.daily_intake.total_fiber / +currNutrition.goal.goal_fiber) * 100,cal);
+	TOT_WO_TIME_D.innerText=convertToReadableTime(currNutrition.total_time_ac)
+	
+}
+
+function convertToReadableTime(timeString) {
+    const [hours, minutes, seconds] = timeString.split(":").map(Number);
+    return `${hours}h ${minutes}m ${seconds}s`;
+}
+
+function checkAndSend(pro, carb, fat, fib, cal) {
+    if (pro >= 100) {
+        let obj = {
+            title: "Protein Goal",
+            message: "You have Reached Today's Protein Goal"
+        };
+        
+        if(!checkIfExist("nutrition","Protein Goal")){
+			notifications.nutrition.push(obj);
+
+		}
+    }
+    
+    if (carb >= 100) {
+        let obj = {
+            title: "Carbohydrate Goal",
+            message: "You have Reached Today's Carbohydrate Goal"
+        };
+        
+        if(!checkIfExist("nutrition","Carbohydrate Goal")){
+			notifications.nutrition.push(obj);
+
+		}    }
+    
+    if (fat >= 100) {
+        let obj = {
+            title: "Fat Goal",
+            message: "You have Reached Today's Fat Goal"
+        };
+        if(!checkIfExist("nutrition","Fat Goal")){
+			notifications.nutrition.push(obj);
+
+		}    }
+    
+    if (fib >= 100) {
+        let obj = {
+            title: "Fiber Goal",
+            message: "You have Reached Today's Fiber Goal"
+        };
+        if(!checkIfExist("nutrition","Fiber Goal")){
+			notifications.nutrition.push(obj);
+
+		}    }
+    
+    if (cal >= 100) {
+        let obj = {
+            title: "Calorie Goal",
+            message: "You have Reached Today's Calorie Goal"
+        };
+        if(!checkIfExist("nutrition","Calorie Goal")){
+			notifications.nutrition.push(obj);
+
+		}    }
+}
+
+
+function renderDashboardRing(pro,carbs,fat,wat){
+	console.log("water",wat);
+	DA_CAR.innerText=carbs.toFixed(1)+"%";
+	DA_FAT.innerText=fat.toFixed(1)+"%";
+	DA_PRO.innerText=pro.toFixed(1)+"%";
+	DA_WAT.innerText=(wat-10).toFixed(1)+"%";
+	metrics.dwater=(wat-10)>100?100:(wat-10);
+	metrics.services=pro>100?100:pro;
+	metrics.heat=fat>100?100:fat;
+	metrics.energy=carbs>100?100:carbs;
+	OVERALL_PERCENTAGE.innerText=((pro+carbs+fat+(wat-10))/4).toFixed(1)+"%";
+	
+	updateFoodMeasurement()
+}
+
+
+function renderNutritionData(){
+		KM_WALKED.innerText=currNutrition.daily_intake.km_walked.toFixed(2)+" km / "+currNutrition.goal.goal_kilometer_walked+" km";
+		STAT_VALUE.innerText=currNutrition.sleep_time?"0hr of sleep":currNutrition.sleep_time+" of sleep"
+		let val=Number(((currNutrition.daily_intake.km_walked / currNutrition.goal.goal_kilometer_walked) * 100))
+		let percentage =val > 100 ? 100 : val;
+		percentage=percentage.toFixed(2);
+		console.log("percentage",percentage)
+		updateChart(percentage);
+
+}
+
+function renderCalorieData(calObj) {
+	console.log(calObj);
+	const calInstance = Chart.getChart("activityChart");
+	revenueData.length = 0;
+
+	// Create temp array to store ordered values
+	let tempData = [];
+
+	// Fill tempData excluding the current weekday
+for (const day of days) {
+    if (day !== currentWeekday) {
+        tempData.push(calObj[day] || 0);
+    } else {
+        break; // Stops the loop when the condition fails
+    }
+}
+	// Add current weekday data at the end
+	if (calObj[currentWeekday]) {
+		tempData.push(calObj[currentWeekday]);
+	} else {
+		tempData.push(0);
+	}
+
+	console.log("tepms data",tempData)
+	// Assign tempData to revenueData
+	revenueData.push(...tempData);
+	console.log("Updated revenueData:", revenueData);
+
+	calInstance.update();
+}
+
+function addLog() {
+    LOGS.innerHTML = ""; // Clear previous logs
+
+    let tableWrapper = document.createElement("div");
+    tableWrapper.classList.add("table-wrapper"); // Add class for styling
+
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let tbody = document.createElement("tbody");
+
+    let headerRow = document.createElement("tr");
+    let headers = ["Name", "Quantity", "Time"];
+
+    headers.forEach((text) => {
+        let th = document.createElement("th");
+        th.innerText = text;
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    currNutrition.log.forEach((obj) => {
+        let row = document.createElement("tr");
+
+        let nameCell = document.createElement("td");
+        let quantityCell = document.createElement("td");
+        let timeCell = document.createElement("td");
+
+        nameCell.innerText = obj.food_name;
+        quantityCell.innerText = obj.quantity ;
+        timeCell.innerText = obj.time_logged ;
+
+        row.appendChild(nameCell);
+        row.appendChild(quantityCell);
+        row.appendChild(timeCell);
+        tbody.appendChild(row);
+    });
+
+    table.appendChild(tbody);
+    tableWrapper.appendChild(table);
+    LOGS.appendChild(tableWrapper);
+}
+
+
+ function getLogInfo(dat){
+	console.log("i'm here");
+	fetch(`/kunto/getUserStats?user_id=1&date=${dat}`)
+	.then((res)=>{
+		if(res.status==200){
+			return res.json();
+		}
+	})
+	.then((data)=>{
+		console.log(data);
+		currNutrition=data;
+		renderLogInfo()
+	})
+	
+}
+
+function putlogInfo() {
+	
+	selectedFoodObj["user_id"]=1;
+	selectedFoodObj["foods"] = selectedFood;
+	console.log(selectedFoodObj);
+    fetch("/kunto/log", {
+        method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(selectedFoodObj) 
+    })
+    .then((res)=>{
+		if(res.status==200){
+			return res.json();
+		}
+	}) 
+    .then(data => {
+		console.log("hehe");
+        if(data.message=="successfull"){
+			getLogInfo(formattedDate);
+		}
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+}
+
+
+

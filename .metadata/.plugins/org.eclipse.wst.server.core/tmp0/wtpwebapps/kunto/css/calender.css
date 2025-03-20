@@ -1,0 +1,85 @@
+.cale-wrapper{
+    display: flex;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
+    background: var(--grid-bg);
+    /* background-color: gray; */
+ }
+.cale-container {
+    background-color: #e8e8e8;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); */
+    text-align: center;
+    width: 310px;
+    height: 310px;
+}
+.cale-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+.cale-header button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+.cale-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.cale-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.cale-actions button:hover {
+    background: #0056b3;
+}
+.cale-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 14px;
+}
+.cale-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+.cale-date {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 12px;
+}
+.cale-date:hover, .cale-selected {
+    background: #007bff;
+    color: white;
+}
+.cale-today {
+    background: #28a745 !important;
+    color: white !important;
+}

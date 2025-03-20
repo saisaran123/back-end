@@ -1,0 +1,13 @@
+INDEX VERSION 1.4+/home/sai-zstch1475/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+254745637.index
+5020734.index
+2850791984.index
+877020123.index
+3353526293.index
+920842738.index
+1167461923.index
+732059796.index
+556541603.index
+22635693.index
+1112822763.index
+3579276893.index

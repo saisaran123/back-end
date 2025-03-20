@@ -1,0 +1,50 @@
+import com.google.auth.oauth2.GoogleCredentials; // For authenticating with Google Cloud using service account credentials
+import com.google.cloud.storage.Blob; // For accessing objects (files) in Google Cloud Storage
+import com.google.cloud.storage.Storage; // For interacting with Google Cloud Storage service
+import com.google.cloud.storage.StorageOptions; // For configuring and building the Storage client
+import java.io.FileInputStream; // For reading the service account credentials file
+import java.io.IOException; // For handling I/O exceptions
+import java.io.InputStream; // For reading the video file from Google Cloud Storage
+import java.io.OutputStream; // For writing the video data to the HTTP response
+import java.nio.channels.Channels; // For creating a channel to read the Blob object
+import javax.servlet.ServletException; // For handling servlet exceptions
+import javax.servlet.annotation.WebServlet; // For servlet annotations
+import javax.servlet.http.HttpServlet; // For defining a servlet
+import javax.servlet.http.HttpServletRequest; // For handling HTTP requests
+import javax.servlet.http.HttpServletResponse; // For handling HTTP responses
+
+public class VideoServlet extends HttpServlet {
+
+    private static final String BUCKET_NAME = "your-bucket-name";
+    private static final String OBJECT_NAME = "your-video-file.mp4";
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Ensure you're passing the correct credentials
+        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("src/main/rexources/gifted-object-448707-j0-e13a6003d310.json"));
+
+        // Use the credentials to authenticate and create the Storage client
+        Storage storage = StorageOptions.newBuilder()
+                .setCredentials(credentials)
+                .build()
+                .getService();
+
+        // Fetch the video from Google Cloud Storage
+        Blob blob = storage.get(BUCKET_NAME, OBJECT_NAME);
+
+        // Set the content type and length for video streaming
+        response.setContentType("video/mp4");
+        response.setContentLengthLong(blob.getSize());
+
+        // Stream the video to the client
+        try (InputStream inputStream = Channels.newInputStream(blob.reader());
+             OutputStream outputStream = response.getOutputStream()) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+    }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;kunto/src/main/java/VideoServlet.java&apos; to &apos;NutritionServlet.java&apos;" description="Rename resource &apos;VideoServlet.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/java/VideoServlet.java" name="NutritionServlet.java" stamp="1738039818863" updateReferences="true"/>
+</session>

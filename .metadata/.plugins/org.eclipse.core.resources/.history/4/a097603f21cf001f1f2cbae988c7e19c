@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #000;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .game-container {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            width: 90%;
+            max-width: 400px;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+        }
+
+        .game-title {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .number-input {
+            width: 80%;
+            padding: 12px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            text-align: center;
+            outline: none;
+            margin-bottom: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .number-input:focus {
+            background: rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+            box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .submit-button {
+            width: 60%;
+            padding: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .response {
+            font-family: 'Geologica', sans-serif;
+            position: fixed;
+            z-index: 10;
+            top: 15px;
+            text-align: center;
+            left: 50%;
+            font-size: 1.25rem;
+            transform: translate(-50%, -300%);
+            color: #fff;
+            background-color: rgb(203, 93, 93);
+            padding: .8rem;
+            border-radius: 3px;
+            transition: .35s;
+        }
+
+
+        .win_msg {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            display: none;
+        }
+
+        .win_msg .game-title {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        .win_msg .again {
+            text-decoration: none;
+            padding: 12px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(to right, #56ab2f, #a8e063);
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 15px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .win_msg .again:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        #attempts {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: rgba(52, 152, 219, 0.8);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="response"></div>
+    <div id="attempts"></div>
+    <div class="game-container">
+
+        <div class="game-title">Guess the Number</div>
+        <input type="number" name="num" class="number-input" placeholder="Enter your guess..." min="1" max="100">
+        <button class="submit-button game">Submit</button>
+    </div>
+    <div class="win_msg">
+        <div class="game-title">Congratulations!</div>
+        <a class="again" href="/NumberGuessingGame/index.html">Play Again?</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        let attemptsDisplay = _("#attempts");
+        let msg = _(".response");
+        function _(ele) {
+            return document.querySelector(ele);
+        }
+        function validateInput(input) {
+            let num = input.value;
+            let isValid = true;
+
+            if (!isNaN(num) || num < 1 || num > 100 || num.trim == '') {
+                isValid = false;
+                dispPopup("Please enter a number between 1 and 100");
+            }
+
+            return isValid;
+        }
+        _(".game").addEventListener("click", () => {
+            let input = _(".number-input").value;
+            if (!validateInput(input)) {
+                return;
+            }
+
+            let choice = input;
+            const obj = {
+                "num": choice
+            }
+            fetch("/NumberGuessingGame/GuessingServlet", {
+                method: "Post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(obj)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    let message = "";
+                    let num = data["stat"];
+                    if (num == 0) {
+                        _(".game-container").style.display = "none";
+                        _(".win_msg").style.display = "block";
+                        confetti({
+                            particleCount: 100,
+                            spread: 110,
+                            origin: { y: 0.6 }
+                        });
+                    }
+                    else if (num == 1) {
+                        message = "Guessesd is number too high!";
+                        dispPopup(message);
+                    }
+                    else if (num == 2) {
+                        message = "Guessesd is number too low!";
+                        dispPopup(message);
+                    }
+                    updateAttempts();
+                })
+        });
+        _(".again").addEventListener("click", () => {
+            _(".game-container").style.display = "blocl";
+            _(".win_msg").style.display = "none";
+        });
+        _(".number-input").addEventListener("keydown", function (eve) {
+            if (eve.key == "Enter") {
+                _(".game").click();
+            }
+        })
+        function dispPopup(message) {
+            msg.innerText = message;
+            msg.style.transform = "translate(-50%)";
+            setTimeout(function () {
+                msg.style.transform = "translate(-50%, -300%)";
+            }, 1500);
+        }
+        function updateAttempts() {
+            attemptsDisplay.innerText = "Attempts: " + getCookie("attempt");
+        }
+        function getCookie(name) {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+
+            return null;
+        }
+        updateAttempts();
+
+    </script>
+</body>
+
+</html>

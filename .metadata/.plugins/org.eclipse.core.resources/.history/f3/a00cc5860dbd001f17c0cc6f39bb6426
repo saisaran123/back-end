@@ -1,0 +1,16 @@
+package login;
+
+import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class LoginForm extends HttpServlet{
+	public void service(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
+		String Email = req.getParameter("email");
+		String password = req.getParameter("password");
+		res.setContentType("text/html");
+		PrintWriter pw = res.getWriter();
+		pw.println("<div class = 'output'>Email :"+Email+"<br>Password :"+password+"</div>");
+	}
+}

@@ -1,0 +1,31 @@
+.progress-container {
+    position: relative;
+    /* left: 30px; */
+}
+
+.nu-habits-card svg {
+    transform: rotate(-90deg);
+    text-align: center; 
+}
+
+circle {
+    transition: stroke-dashoffset 2s linear;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--font-clr);
+}
+
+.nu-calories_heading{
+     position: absolute;
+     top: 0;
+     left: 0;
+     padding: 22px;
+     letter-spacing: 2px;
+}

@@ -1,0 +1,160 @@
+package com.kunto.controller;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.Timestamp;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.*;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import org.json.JSONObject;
+
+//@WebServlet()
+public class Bot extends HttpServlet{
+    private String ACCESSTOKEN = null;
+    private LocalDateTime accessTokenGetTime = null;
+    private static final String CONTEXT_FILE_PATH = "/home/sai-zstch1475/eclipse-workspace/kunto/src/main/webapp/context.txt";
+	LocalTime tokenCreated=LocalTime.of(12, 30,12);
+    private static  String clientId = "1000.8DKTZ3X434287T50JMH3A34I8054OG";
+    private static  String clientSec = "6a6b3257a9d0c4b17e73ec800263b4f8f799e60918";
+    private static  String refreshT = "1000.62ce4c9c6cfbc64f670d123afba8ab11.a77dd218e592eeed935171f6f59a069f";
+    private static  String TokenU = "https://accounts.csez.zohocorpin.com/oauth/v2/token";
+
+
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    	
+    	LocalTime accTime=LocalTime.now();
+    	
+    	Duration duration=Duration.between(tokenCreated, accTime);
+    	if(duration.toHours()>=1 || ACCESSTOKEN==null) {
+    		System.out.println("CREATE TOKEN");
+    		ACCESSTOKEN=getAccessToken();
+    		tokenCreated=LocalTime.now();
+    	}
+    	
+        res.setContentType("application/json");
+        PrintWriter out = res.getWriter();
+        String query = req.getParameter("query");
+        System.out.println(query);
+        getResponse(query, out);
+        System.out.println("outtt");
+
+    }
+    
+    public void getResponse(String userInp, PrintWriter pw) {
+        try {
+            String apiUrl = "https://platformai.csez.zohocorpin.com/internalapi/v2/ai/kbbot";
+            URL url = new URL(apiUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            // Set request properties
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("portal_id", "ZS");
+            conn.setRequestProperty("Authorization", ACCESSTOKEN);
+            conn.setDoOutput(true);
+
+            // Read context from file
+            String context = new String(Files.readAllBytes(Paths.get(CONTEXT_FILE_PATH)));
+            context = context.replace("\"", "\\\""); // Escape quotes
+
+            // Create JSON request body
+            String jsonInputString = "{" +
+                    "\"context\":\"" + context + "\"," +
+                    "\"content\":\"" + userInp + "\"," +
+                    "\"ai_vendor\":\"zia\"}";
+
+            // Send request
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
+            // Read response
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+            	System.out.println("okay");
+                try (Scanner scanner = new Scanner(conn.getInputStream(), "utf-8")) {
+                    StringBuilder response = new StringBuilder();
+                    while (scanner.hasNextLine()) {
+                        response.append(scanner.nextLine());
+                    }
+                    System.out.println(response.toString());
+                    pw.println(response.toString());
+                }
+            } else {
+            	System.out.println("error"+responseCode);
+
+                pw.println("Error: " + responseCode);
+            }
+            conn.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+            pw.println("Exception occurred: " + e.getMessage());
+        }
+
+}
+	
+    public static String getAccessToken() {
+        try {
+            // Create the URL object
+            URL url = new URL(TokenU);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            // Set request method and headers
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setDoOutput(true); // Enable sending data
+
+            // Create request body
+            String requestBody = "client_id=" + clientId +
+                                 "&client_secret=" + clientSec +
+                                 "&grant_type=refresh_token" +
+                                 "&refresh_token=" + refreshT;
+
+            // Write request body to output stream
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = requestBody.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+
+            // Get the response code
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // 200 OK
+                try (Scanner scanner = new Scanner(conn.getInputStream(), StandardCharsets.UTF_8)) {
+                    StringBuilder response = new StringBuilder();
+                    while (scanner.hasNextLine()) {
+                        response.append(scanner.nextLine());
+                    }
+
+                    // Parse JSON response
+                    JSONObject jsonResponse = new JSONObject(response.toString());
+                    System.out.println(jsonResponse);
+                    return "Zoho-oauthtoken "+jsonResponse.getString("access_token");
+                }
+            } else {
+                System.out.println("Error: HTTP " + responseCode);
+            }
+
+            // Close connection
+            conn.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+	
+	
+	}

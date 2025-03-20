@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+
+     
+     #popup-msg {
+    font-family: 'Geologica', sans-serif;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-300%);
+    background:rgba(74, 144, 226, 255); /* Stylish red */
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition:.5s;
+}
+
+#popup-msg.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%);
+}
+     
